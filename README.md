@@ -15,7 +15,7 @@ Access the interactive study portal directly on GitHub Pages:
 
 | Portal | Date | Primary Themes & Scientific / Literary Discussions | Access Link |
 | :--- | :--- | :--- | :--- |
-| **Lesson Notes (Latest)** | **24 October 2026** | **Mallorca Sunshine & Turquoise Waters vs Grey Berlin Autumn, Overcoming Denglish Syntax, Mountain Aerodynamics (Gliders, Angle of Attack & Thermals), Cue Sports (Pool & Billiards), Cricket Wickets & Long-Distance Running, Optical Illusions vs Elder Wisdom, Positive Peer Pressure, Jargon vs Bavarian Colloquialisms (*"Servus"*, *"for ages"*), Erich Maria Remarque's *All Quiet on the Western Front* (Trench Warfare & Soldier Perspective) vs Paul Verhoeven's *Starship Troopers* (Satirical Parody), Abitur Exam Preparation & The 45-Second Elevator Pitch.** | [**Launch Interactive Sanctuary**](https://log210788.github.io/Clemens/) • [Direct File](./lesson_10-24-2026.html) |
+| **Lesson Notes (Latest)** | **24 October 2026** | **Mallorca Sunshine & Turquoise Waters vs Grey Berlin Autumn, Overcoming Denglish Syntax, Mountain Aerodynamics (Gliders, Angle of Attack & Thermals), Cue Sports (Pool & Billiards), Cricket Wickets & Long-Distance Running, Optical Illusions vs Elder Wisdom, Positive Peer Pressure, Jargon vs Bavarian Colloquialisms (*"Servus"*, *"for ages"*), Erich Maria Remarque's *All Quiet on the Western Front* (Trench Warfare & Soldier Perspective) vs Paul Verhoeven's *Starship Troopers* (Satirical Parody), Abitur Exam Preparation & The 45-Second Elevator Pitch.** | [**Launch Interactive Sanctuary**](https://log210788.github.io/leberkase/) • [Direct File](./lesson_10-24-2026.html) |
 
 ---
 
