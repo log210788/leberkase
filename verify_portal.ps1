@@ -79,7 +79,7 @@ if ($allBlocksFound) {
 # 6. Checking Vocabulary Key Match
 Write-Host "`n--- 6. Checking Vocabulary Key Match ---"
 $vocabKeys = [regex]::Matches($content, '^\s*"([^"]+)":\s*\{', [System.Text.RegularExpressions.RegexOptions]::Multiline) | ForEach-Object { $_.Groups[1].Value }
-$usedKeys = [regex]::Matches($content, '\$\{v\("([^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique
+$usedKeys = [regex]::Matches($content, '\$\{v\([''"]([^''"]+)') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique
 
 $missing = @()
 foreach ($k in $usedKeys) {
