@@ -1,0 +1,2869 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Louie's English Studio | Clemens B • 14 November 2026</title>
+
+  <!-- Google Fonts: Cormorant Garamond, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            parchment: {
+              50: '#fbf9f5',
+              100: '#f6f1e7',
+              200: '#ede3d1',
+              300: '#dfd0b5',
+              400: '#cbb38e',
+              500: '#b6966b',
+            },
+            autumn: {
+              50: '#fcf6f0',
+              100: '#f7e9db',
+              200: '#eed0b5',
+              300: '#e2b086',
+              400: '#d38c57',
+              500: '#be6f38',
+              600: '#a3582b',
+              700: '#854524',
+              800: '#6c3921',
+            },
+            sage: {
+              50: '#f4f7f5',
+              100: '#e4ece7',
+              200: '#cadad1',
+              300: '#a5bfb1',
+              400: '#7b9f8d',
+              500: '#5b826f',
+              600: '#476858',
+              700: '#3a5448',
+              800: '#30443b',
+            },
+            slatewarm: {
+              700: '#3d4441',
+              800: '#2b312e',
+              900: '#1e2321',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Popper & Tippy.js -->
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/shift-away.css" />
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg-base: #f9f6f0;
+      --bg-card: rgba(255, 253, 249, 0.94);
+      --bg-subcard: rgba(255, 255, 255, 0.96);
+      --border-soft: #e6decb;
+      --border-accent: #d9c8b0;
+      --text-main: #2b312e;
+      --text-muted: #5c6660;
+      --grad-1: rgba(238, 208, 181, 0.40);
+      --grad-2: rgba(202, 218, 209, 0.45);
+      --grad-3: rgba(246, 241, 231, 0.65);
+    }
+
+    body[data-theme="winchester"] {
+      --bg-base: #f3f6f5;
+      --bg-card: rgba(252, 254, 253, 0.94);
+      --bg-subcard: rgba(255, 255, 255, 0.96);
+      --border-soft: #d7e2dc;
+      --border-accent: #b8ccc2;
+      --text-main: #26312d;
+      --text-muted: #52635c;
+      --grad-1: rgba(202, 218, 209, 0.48);
+      --grad-2: rgba(219, 228, 238, 0.45);
+      --grad-3: rgba(244, 240, 230, 0.52);
+    }
+
+    body[data-theme="twilight"] {
+      --bg-base: #f5efe6;
+      --bg-card: rgba(253, 249, 242, 0.94);
+      --bg-subcard: rgba(255, 252, 247, 0.97);
+      --border-soft: #e2d2be;
+      --border-accent: #cfaea0;
+      --text-main: #2d2622;
+      --text-muted: #665850;
+      --grad-1: rgba(226, 176, 134, 0.35);
+      --grad-2: rgba(214, 196, 176, 0.40);
+      --grad-3: rgba(235, 220, 202, 0.52);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(at 6% 4%, var(--grad-1) 0px, transparent 50%),
+        radial-gradient(at 94% 16%, var(--grad-2) 0px, transparent 50%),
+        radial-gradient(at 50% 90%, var(--grad-3) 0px, transparent 55%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      transition: background-color 0.5s ease, color 0.4s ease;
+      overflow-x: hidden;
+    }
+
+    .sanctuary-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 30px -10px rgba(91, 130, 111, 0.07), 0 4px 12px -3px rgba(43, 49, 46, 0.04);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sanctuary-subcard {
+      background: var(--bg-subcard);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 4px 12px -4px rgba(43, 49, 46, 0.04);
+      transition: all 0.25s ease;
+    }
+
+    /* Inline Vocabulary Highlight in Transcript */
+    .vocab-mark {
+      display: inline-block;
+      padding: 0 0.35rem;
+      margin: 0 0.1rem;
+      border-radius: 0.375rem;
+      background: linear-gradient(120deg, rgba(238, 208, 181, 0.55), rgba(226, 176, 134, 0.45));
+      border-bottom: 2px solid #be6f38;
+      color: #2b312e;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .vocab-mark:hover {
+      background: #be6f38;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px -2px rgba(190, 111, 56, 0.4);
+    }
+    .vocab-mark.active-vocab {
+      background: #5b826f;
+      color: #ffffff;
+      border-bottom-color: #3a5448;
+      box-shadow: 0 4px 12px -2px rgba(91, 130, 111, 0.45);
+    }
+
+    body.hide-vocab-highlights .vocab-mark {
+      background: transparent !important;
+      border-bottom: 1px dashed #be6f38 !important;
+      color: inherit !important;
+      font-weight: inherit !important;
+      padding: 0 !important;
+    }
+
+    /* ASR Forensic Note-Taker Fix Pill */
+    .asr-fix-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.1rem 0.5rem;
+      margin: 0 0.15rem;
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      border-radius: 9999px;
+      background: rgba(91, 130, 111, 0.12);
+      border: 1px solid rgba(91, 130, 111, 0.35);
+      color: #3a5448;
+      font-weight: 600;
+      vertical-align: middle;
+      transition: all 0.2s ease;
+    }
+    .asr-fix-pill:hover {
+      background: rgba(91, 130, 111, 0.22);
+      border-color: #5b826f;
+      transform: scale(1.02);
+    }
+    body.hide-asr-fixes .asr-fix-pill {
+      display: none !important;
+    }
+
+    /* Flashcard 3D Perspective */
+    .flashcard-inner {
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .flashcard-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flashcard-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Golden Pulse on Jump to Transcript */
+    @keyframes gentleGlow {
+      0% { background-color: rgba(226, 176, 134, 0.55); transform: scale(1.008); }
+      50% { background-color: rgba(165, 191, 177, 0.42); }
+      100% { background-color: transparent; transform: scale(1); }
+    }
+    .turn-highlight-flash {
+      animation: gentleGlow 2.8s ease-out;
+    }
+
+    /* Custom Tippy Tooltip Theme */
+    .tippy-box[data-theme~='autumn-sanctuary'] {
+      background-color: #fffdf9;
+      color: #2b312e;
+      border: 1px solid #dfd0b5;
+      border-radius: 1rem;
+      box-shadow: 0 20px 38px -8px rgba(61, 68, 65, 0.16), 0 6px 16px -4px rgba(163, 88, 43, 0.08);
+      padding: 0.35rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .tippy-box[data-theme~='autumn-sanctuary'][data-placement^='top'] > .tippy-arrow::before {
+      border-top-color: #dfd0b5;
+    }
+    .tippy-box[data-theme~='autumn-sanctuary'][data-placement^='bottom'] > .tippy-arrow::before {
+      border-bottom-color: #dfd0b5;
+    }
+
+    @media print {
+      .no-print, #autumn-breeze-canvas { display: none !important; }
+      body { background: #fff !important; }
+      .sanctuary-card, .sanctuary-subcard { box-shadow: none !important; border: 1px solid #ccc !important; }
+    }
+  </style>
+</head>
+<body data-theme="kensington" class="font-sans antialiased min-h-screen selection:bg-autumn-200 selection:text-slatewarm-900 relative">
+
+  <!-- CALMING LONDON AUTUMN BREEZE CANVAS OVERLAY -->
+  <canvas id="autumn-breeze-canvas" class="fixed inset-0 pointer-events-none z-20 opacity-80"></canvas>
+
+  <!-- TOP MULTI-LESSON & PRE-LESSON ARCHIVE BAR -->
+  <aside class="bg-gradient-to-r from-sage-800 via-sage-700 to-autumn-700 text-white text-xs py-2 px-4 shadow-sm relative z-50 flex items-center justify-between gap-3 flex-wrap">
+    <div class="flex items-center gap-2 flex-wrap">
+      <a href="./lesson_11-14-2026.html" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-300 hover:bg-amber-200 text-stone-900 font-bold text-[11px] shadow transition">
+        🚀 Launch Lesson 02 Live Studio (14 Nov 2026) →
+      </a>
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 text-white font-mono text-[11px] font-bold">
+        🌿 Lesson 01 Sanctuary (24 Oct 2026)
+      </span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-amber-200 text-[11px] font-semibold">Student: Clemens B (Berlin, Germany)</span>
+      <a href="#how-it-works" class="underline font-semibold hover:text-parchment-100 transition text-[11px] ml-2">How It Works ↓</a>
+    </div>
+  </aside>
+
+  <!-- STICKY PEACEFUL NAVIGATION & ATMOSPHERE BAR -->
+  <header class="sticky top-0 z-40 border-b border-[#e6decb]/90 bg-[#fbf9f5]/85 backdrop-blur-md no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Brand Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-sage-600 via-sage-500 to-autumn-500 flex items-center justify-center text-white font-serif text-xl font-bold shadow-sm">
+          L
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-serif font-bold text-lg sm:text-xl tracking-tight text-slatewarm-900">Louie's English Studio</span>
+            <span class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-sage-100 text-sage-800 border border-sage-200">
+              <i data-lucide="sparkles" class="w-3 h-3 text-autumn-600"></i>
+              Literature, Flight &amp; Abitur Preparation
+            </span>
+          </div>
+          <p class="text-[11px] text-stone-500 hidden md:block">Full cleaned transcript, inline B2–C2 lexicon, German translations, gentle phrasing upgrades &amp; UK audio</p>
+        </div>
+      </div>
+
+      <!-- Calming Atmosphere Controls -->
+      <div class="flex flex-wrap items-center gap-2">
+        
+        <!-- London Breeze Audio Player -->
+        <div class="flex items-center gap-1.5 bg-white/90 border border-[#dfd0b5] rounded-xl px-2.5 py-1 shadow-sm">
+          <button id="soundscape-btn" onclick="toggleSoundscape()" class="flex items-center gap-1.5 text-xs font-semibold text-sage-700 hover:text-sage-900 transition px-1.5 py-0.5 rounded-lg" title="Play soothing ambient soundscape">
+            <i data-lucide="wind" id="soundscape-icon" class="w-3.5 h-3.5 text-autumn-600"></i>
+            <span id="soundscape-label">Autumn Breeze: Off</span>
+          </button>
+          <select id="soundscape-preset" onchange="changeSoundscapePreset(this.value)" class="text-[11px] bg-parchment-50 border border-parchment-200 rounded-lg px-1.5 py-0.5 text-stone-700 focus:outline-none">
+            <option value="breeze">🍂 Autumn Breeze</option>
+            <option value="rain">🌧️ Soft Rain</option>
+            <option value="study">🕯️ Warm Study Hearth</option>
+          </select>
+          <input id="soundscape-volume" type="range" min="0.05" max="0.6" step="0.05" value="0.22" oninput="updateSoundscapeVolume(this.value)" class="w-14 accent-sage-600 cursor-pointer hidden sm:block" />
+        </div>
+
+        <!-- Falling Leaves Toggle -->
+        <button id="leaves-toggle-btn" onclick="cycleLeafBreeze()" class="px-2.5 py-1.5 rounded-xl bg-white/90 hover:bg-autumn-50 border border-[#dfd0b5] text-xs font-medium text-stone-700 flex items-center gap-1.5 shadow-sm transition">
+          <i data-lucide="leaf" class="w-3.5 h-3.5 text-autumn-600"></i>
+          <span id="leaves-label" class="hidden sm:inline">Leaves: Gentle</span>
+        </button>
+
+        <!-- UK Voice Speed -->
+        <div class="flex items-center gap-1 bg-white/90 border border-[#dfd0b5] rounded-xl px-2 py-1 shadow-sm text-xs">
+          <i data-lucide="volume-2" class="w-3.5 h-3.5 text-sage-600"></i>
+          <button onclick="setVoiceRate(0.85)" id="rate-slow" class="px-1.5 py-0.5 rounded-md text-[11px] text-stone-600 hover:bg-parchment-100 transition">0.85×</button>
+          <button onclick="setVoiceRate(1.0)" id="rate-normal" class="px-1.5 py-0.5 rounded-md text-[11px] bg-sage-600 text-white font-semibold transition">UK 1×</button>
+        </div>
+
+        <!-- Theme Mood Selector -->
+        <div class="hidden lg:flex items-center gap-1 bg-white/90 border border-[#dfd0b5] rounded-xl p-1 text-[11px] shadow-sm">
+          <button onclick="setThemeMood('kensington')" id="theme-kensington" class="px-2 py-0.5 rounded-lg bg-autumn-100 text-autumn-800 font-semibold transition">Bath Stone</button>
+          <button onclick="setThemeMood('winchester')" id="theme-winchester" class="px-2 py-0.5 rounded-lg text-stone-600 hover:text-stone-900 transition">Winchester Mist</button>
+          <button onclick="setThemeMood('twilight')" id="theme-twilight" class="px-2 py-0.5 rounded-lg text-stone-600 hover:text-stone-900 transition">Warm Study</button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 space-y-7 relative z-10">
+
+    <!-- HERO / LESSON OVERVIEW -->
+    <section class="sanctuary-card rounded-3xl p-6 sm:p-9 relative overflow-hidden">
+      <div class="absolute -right-12 -top-12 w-64 h-64 bg-autumn-200/30 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-12 -bottom-12 w-64 h-64 bg-sage-200/35 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-7 items-center">
+        <div class="lg:col-span-8 space-y-3.5">
+          <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-full bg-sage-100/90 border border-sage-200 text-sage-800 text-xs font-medium">
+            <i data-lucide="compass" class="w-3.5 h-3.5 text-autumn-600"></i>
+            <span>Lesson 02 Notes • 14 November 2026 • 72-Minute Full Session</span>
+          </div>
+
+          <h1 class="font-serif text-3xl sm:text-4xl lg:text-[2.65rem] font-bold text-slatewarm-900 leading-[1.16]">
+            From School Council Governance &amp; Stasi Surveillance to <span class="text-autumn-700 italic font-semibold">Civil Rights &amp; Geopolitics</span>
+          </h1>
+
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed max-w-3xl">
+            In today's 72-minute session, we covered a wide-ranging intellectual arc: Clemens' school party and 12-vote student council governance, British school governors and community responsibilities, Vietnam–China border crossings and social scoring, East German <em>Stasi</em> surveillance and psychological coercion, authoritarian capitalism, voting freedom and Germany's pension demographics, and preparing Clemens' upcoming 15-minute presentation on the <strong>US Civil Rights Movement &amp; Slavery</strong>.
+          </p>
+
+          <!-- 4 Pillars for the Student -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 text-xs">
+            <div class="flex items-start gap-2 bg-parchment-100/80 p-2.5 rounded-xl border border-parchment-300">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-600 shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-slatewarm-900">Zero Note-Taking Friction:</strong> Full chronological transcript organized across 6 chapters (00:00 to 70:48) with per-turn British audio synthesis.
+              </div>
+            </div>
+            <div class="flex items-start gap-2 bg-parchment-100/80 p-2.5 rounded-xl border border-parchment-300">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-600 shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-slatewarm-900">50 Curated Lexicon Items:</strong> Hover or click any highlighted term for IPA phonetics, CEFR level, German translations, and spoken quotes.
+              </div>
+            </div>
+            <div class="flex items-start gap-2 bg-parchment-100/80 p-2.5 rounded-xl border border-parchment-300">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-600 shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-slatewarm-900">Natural Strengths &amp; Upgrades:</strong> Celebrating 6 high-level idiomatic expressions followed by 6 gentle phrasing polishes.
+              </div>
+            </div>
+            <div class="flex items-start gap-2 bg-parchment-100/80 p-2.5 rounded-xl border border-parchment-300">
+              <i data-lucide="check-circle" class="w-4 h-4 text-sage-600 shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-slatewarm-900">Note-Taker Fixes Log:</strong> All speech-to-text slips (e.g. <em>Clement</em>, <em>Awitze Petruch</em>, <em>Starzi</em>, <em>Munix Airport</em>) forensically resolved.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Lesson Stats Cards -->
+        <div class="lg:col-span-4 grid grid-cols-2 gap-3">
+          <div onclick="switchTab('transcript')" class="cursor-pointer p-4 rounded-2xl bg-parchment-50/95 border border-parchment-300 hover:border-autumn-400 transition shadow-sm group">
+            <div class="text-[11px] font-mono font-semibold uppercase text-autumn-700 flex items-center justify-between">
+              <span>Section 1</span>
+              <i data-lucide="scroll-text" class="w-4 h-4 group-hover:scale-110 transition"></i>
+            </div>
+            <div class="font-serif font-bold text-slatewarm-900 text-lg mt-0.5">Full Transcript</div>
+            <p class="text-[11px] text-stone-600 mt-0.5">6 chapters • 00:00 to 70:48</p>
+          </div>
+
+          <div onclick="switchTab('vocab')" class="cursor-pointer p-4 rounded-2xl bg-sage-50/95 border border-sage-200 hover:border-sage-400 transition shadow-sm group">
+            <div class="text-[11px] font-mono font-semibold uppercase text-sage-700 flex items-center justify-between">
+              <span>Section 2</span>
+              <i data-lucide="book-marked" class="w-4 h-4 group-hover:scale-110 transition"></i>
+            </div>
+            <div class="font-serif font-bold text-slatewarm-900 text-lg mt-0.5">Flagged Lexicon</div>
+            <p class="text-[11px] text-stone-600 mt-0.5">50 B2–C2 terms with German</p>
+          </div>
+
+          <div onclick="switchTab('fixes')" class="cursor-pointer p-4 rounded-2xl bg-autumn-50/95 border border-autumn-200 hover:border-autumn-400 transition shadow-sm group">
+            <div class="text-[11px] font-mono font-semibold uppercase text-autumn-700 flex items-center justify-between">
+              <span>Section 3</span>
+              <i data-lucide="wand-sparkles" class="w-4 h-4 group-hover:scale-110 transition"></i>
+            </div>
+            <div class="font-serif font-bold text-slatewarm-900 text-lg mt-0.5">Strengths &amp; Fixes</div>
+            <p class="text-[11px] text-stone-600 mt-0.5">Confidence boosters &amp; polishes</p>
+          </div>
+
+          <div onclick="switchTab('practice')" class="cursor-pointer p-4 rounded-2xl bg-parchment-50/95 border border-parchment-300 hover:border-sage-400 transition shadow-sm group">
+            <div class="text-[11px] font-mono font-semibold uppercase text-sage-700 flex items-center justify-between">
+              <span>Section 4</span>
+              <i data-lucide="coffee" class="w-4 h-4 group-hover:scale-110 transition"></i>
+            </div>
+            <div class="font-serif font-bold text-slatewarm-900 text-lg mt-0.5">Peaceful Review</div>
+            <p class="text-[11px] text-stone-600 mt-0.5">Flashcards, Idiom Gym &amp; quiz</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-TAB NAVIGATION BAR -->
+    <nav class="sanctuary-card rounded-2xl p-2 flex flex-wrap items-center justify-between gap-2 no-print">
+      <div class="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
+        <button onclick="switchTab('transcript')" id="tab-btn-transcript" class="tab-btn flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-sage-700 text-white shadow-sm">
+          <i data-lucide="message-square-quote" class="w-4 h-4"></i>
+          <span>1. Cleaned Transcript</span>
+          <span class="px-2 py-0.5 text-[10px] rounded-full bg-white/20 text-white font-mono">00:00–54:58</span>
+        </button>
+
+        <button onclick="switchTab('vocab')" id="tab-btn-vocab" class="tab-btn flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-stone-700 hover:bg-parchment-100">
+          <i data-lucide="book-marked" class="w-4 h-4 text-autumn-600"></i>
+          <span>2. Vocabulary Dictionary</span>
+          <span id="vocab-total-badge" class="px-2 py-0.5 text-[10px] rounded-full bg-autumn-100 text-autumn-800 font-mono">54 Words</span>
+        </button>
+
+        <button onclick="switchTab('fixes')" id="tab-btn-fixes" class="tab-btn flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-stone-700 hover:bg-parchment-100">
+          <i data-lucide="sparkles" class="w-4 h-4 text-sage-600"></i>
+          <span>3. Note-Taker Fixes &amp; Gentle Notes</span>
+        </button>
+
+        <button onclick="switchTab('editorials')" id="tab-btn-editorials" class="tab-btn flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-stone-700 hover:bg-parchment-100">
+          <i data-lucide="landmark" class="w-4 h-4 text-autumn-600"></i>
+          <span>4. Literature &amp; Culture Editorials</span>
+        </button>
+
+        <button onclick="switchTab('practice')" id="tab-btn-practice" class="tab-btn flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-stone-700 hover:bg-parchment-100">
+          <i data-lucide="coffee" class="w-4 h-4 text-sage-600"></i>
+          <span>5. Peaceful Practice Sanctuary</span>
+        </button>
+      </div>
+
+      <div class="hidden sm:block">
+        <button onclick="copyPreplySummary()" class="px-3.5 py-2 rounded-xl bg-autumn-600 hover:bg-autumn-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm transition">
+          <i data-lucide="clipboard-copy" class="w-3.5 h-3.5"></i>
+          <span>Copy Preply Lesson Note</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: FULL CLEANED TRANSCRIPT & SPOTLIGHT                          -->
+    <!-- =================================================================== -->
+    <section id="tab-panel-transcript" class="tab-panel space-y-6">
+      
+      <div class="sanctuary-card rounded-3xl p-5 sm:p-6 space-y-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#e6decb] pb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Interactive Lesson Transcript</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-sage-100 text-sage-800">
+                55-Minute Full Session
+              </span>
+            </div>
+            <p class="text-xs text-stone-500 mt-1">
+              Click any <span class="vocab-mark">highlighted phrase</span> to inspect in the Spotlight. Hover for instant British pronunciation &amp; German translations.
+            </p>
+          </div>
+
+          <!-- Controls: Speaker filter, badge toggles -->
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <!-- Speaker Filter Buttons -->
+            <div class="flex items-center gap-1 bg-parchment-100 p-1 rounded-xl border border-parchment-300">
+              <button id="spk-all-btn" onclick="filterSpeaker('all')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-sage-700 text-white shadow-xs transition">All</button>
+              <button id="spk-louie-btn" onclick="filterSpeaker('Louie')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">Louie</button>
+              <button id="spk-clemens-btn" onclick="filterSpeaker('Clemens')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">Clemens</button>
+            </div>
+
+            <!-- Fix Badges Toggle -->
+            <button onclick="toggleAsrBadges()" class="px-3 py-1.5 rounded-xl bg-white border border-stone-200 hover:bg-parchment-100 text-stone-700 font-medium transition flex items-center gap-1.5">
+              <i data-lucide="wand-2" class="w-3.5 h-3.5 text-sage-600"></i>
+              <span id="asr-btn-text">Note-Taker Fixes: Visible</span>
+            </button>
+
+            <!-- Highlights Toggle -->
+            <button onclick="toggleVocabHighlights()" class="px-3 py-1.5 rounded-xl bg-white border border-stone-200 hover:bg-parchment-100 text-stone-700 font-medium transition flex items-center gap-1.5">
+              <i data-lucide="highlighter" class="w-3.5 h-3.5 text-autumn-600"></i>
+              <span id="vocab-btn-text">Vocab Highlights: On</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input id="transcript-search" oninput="filterTranscript()" type="text" placeholder="Search spoken dialogue, vocabulary, topics (e.g. 'Stasi', 'governor', 'Civil Rights', 'pension')..." class="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-white border border-[#dfd0b5] text-xs sm:text-sm text-slatewarm-900 focus:outline-none focus:border-sage-500 shadow-xs placeholder:text-stone-400" />
+          <button id="clear-search-btn" onclick="clearTranscriptSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Two-Column Layout: Turns on Left, Sticky Spotlight on Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left: Transcript Turns -->
+        <div class="lg:col-span-8 space-y-4" id="transcript-turns-container">
+          <!-- Populated via renderTranscript() -->
+        </div>
+
+        <!-- Right: Sticky Spotlight Panel -->
+        <div class="lg:col-span-4 sticky top-20 space-y-4">
+          <div class="sanctuary-card rounded-3xl p-5 sm:p-6 space-y-4 border-t-4 border-t-autumn-500 shadow-md">
+            
+            <div class="flex items-center justify-between border-b border-[#e6decb] pb-3">
+              <div class="flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-autumn-600"></i>
+                <h3 class="font-serif font-bold text-base text-slatewarm-900 uppercase tracking-wide">Vocabulary Spotlight</h3>
+              </div>
+              <span id="spotlight-badge" class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-autumn-100 text-autumn-800">
+                Click any word
+              </span>
+            </div>
+
+            <!-- Spotlight Content -->
+            <div id="spotlight-body" class="space-y-3.5 text-xs">
+              <p class="text-stone-500 italic">Select any highlighted phrase in the transcript or vocabulary grid to inspect definitions, phonetics, and lesson context.</p>
+            </div>
+
+            <!-- Helpful Study Tip -->
+            <div class="pt-3 border-t border-[#e6decb] text-[11px] text-stone-500 flex items-start gap-2">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-sage-600 shrink-0 mt-0.5"></i>
+              <span>Hovering over phrases in the transcript triggers an instant pronunciation card with German translations.</span>
+            </div>
+          </div>
+
+          <!-- Quick Homework Box -->
+          <div class="sanctuary-card rounded-3xl p-5 space-y-2.5 bg-gradient-to-br from-parchment-100/90 to-autumn-50/70 border border-autumn-200">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono font-bold uppercase text-autumn-800 flex items-center gap-1.5">
+                <i data-lucide="target" class="w-3.5 h-3.5"></i>
+                Targeted Homework
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-autumn-200/60 text-autumn-900 font-mono">Exam Focus</span>
+            </div>
+            <h4 class="font-serif font-bold text-sm text-slatewarm-900">15-Min Civil Rights Presentation</h4>
+            <p class="text-[11px] text-stone-600 leading-relaxed">
+              Prepare your 15-minute English presentation on the 1950s–70s <strong>Civil Rights Movement</strong> (comparing Martin Luther King Jr., Malcolm X, and internal factions), and we will discuss your takeaways next Saturday!
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: SEARCHABLE VOCABULARY DICTIONARY                             -->
+    <!-- =================================================================== -->
+    <section id="tab-panel-vocab" class="tab-panel hidden space-y-6">
+      
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e6decb] pb-4">
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Interactive Vocabulary Sanctuary</h2>
+            <p class="text-xs text-stone-500 mt-1">50 B2–C2 words, idioms, and expressions with German translations and UK audio synthesis.</p>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <!-- Level Filter Pills -->
+            <div class="flex items-center gap-1 bg-parchment-100 p-1 rounded-xl border border-parchment-300 text-xs">
+              <button id="lvl-all" onclick="filterVocabLevel('all')" class="px-2.5 py-1 rounded-lg bg-autumn-600 text-white font-bold transition text-xs">All</button>
+              <button id="lvl-B2" onclick="filterVocabLevel('B2')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 font-bold transition text-xs">B2</button>
+              <button id="lvl-C1" onclick="filterVocabLevel('C1')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 font-bold transition text-xs">C1</button>
+              <button id="lvl-C2" onclick="filterVocabLevel('C2')" class="px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 font-bold transition text-xs">C2</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills & Search -->
+        <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+          <div class="flex flex-wrap items-center gap-1.5 text-xs w-full md:w-auto">
+            <button id="cat-all" onclick="filterVocabCategory('all')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-sage-700 text-white shadow-xs transition">All Categories</button>
+            <button id="cat-school-society" onclick="filterVocabCategory('school-society')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">School &amp; Governance</button>
+            <button id="cat-politics-history" onclick="filterVocabCategory('politics-history')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">Politics &amp; History</button>
+            <button id="cat-economics-law" onclick="filterVocabCategory('economics-law')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">Economics &amp; Law</button>
+            <button id="cat-civil-rights" onclick="filterVocabCategory('civil-rights')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">Civil Rights &amp; Culture</button>
+            <button id="cat-language-idioms" onclick="filterVocabCategory('language-idioms')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">Language &amp; Idioms</button>
+            <button id="cat-lifestyle-study" onclick="filterVocabCategory('lifestyle-study')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition">Study &amp; Abitur</button>
+          </div>
+
+          <div class="relative w-full md:w-72">
+            <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input id="vocab-search" oninput="renderVocabGrid()" type="text" placeholder="Search words, definitions, German..." class="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-[#dfd0b5] text-xs text-slatewarm-900 focus:outline-none focus:border-sage-500 shadow-xs" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid of Cards -->
+      <div id="vocab-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Populated via renderVocabGrid() -->
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: NOTE-TAKER FIXES & GENTLE NOTES                              -->
+    <!-- =================================================================== -->
+    <section id="tab-panel-fixes" class="tab-panel hidden space-y-6">
+      
+      <!-- Part 1: Your Natural Strengths -->
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-4">
+        <div class="border-b border-[#e6decb] pb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-5 h-5 text-amber-600"></i>
+            <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Your Natural Strengths in Action</h2>
+          </div>
+          <p class="text-xs text-stone-500 mt-0.5">Six high-level expressions and analytical insights you articulated naturally during the lesson</p>
+        </div>
+
+        <div id="strengths-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <!-- Populated via renderStrengths() -->
+        </div>
+      </div>
+
+      <!-- Part 2: Gentle Phrasing Polishes -->
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-4">
+        <div class="border-b border-[#e6decb] pb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="feather" class="w-5 h-5 text-sage-600"></i>
+            <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Gentle Phrasing Polishes</h2>
+          </div>
+          <p class="text-xs text-stone-500 mt-0.5">Encouraging upgrades to overcome German syntactic patterns and sound effortless</p>
+        </div>
+
+        <div id="phrasing-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <!-- Populated via renderPhrasing() -->
+        </div>
+      </div>
+
+      <!-- Part 3: Speech-to-Text Corrections Log -->
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-4">
+        <div class="border-b border-[#e6decb] pb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="wrench" class="w-5 h-5 text-autumn-600"></i>
+            <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Forensic Note-Taker Fixes Log</h2>
+          </div>
+          <p class="text-xs text-stone-500 mt-0.5">How automated speech-to-text algorithms stumbled on proper nouns, accents, and German terms</p>
+        </div>
+
+        <div id="asr-fixes-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-2">
+          <!-- Populated via renderAsrFixes() -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: LITERATURE & CULTURE EDITORIALS                              -->
+    <!-- =================================================================== -->
+    <section id="tab-panel-editorials" class="tab-panel hidden space-y-6">
+      
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="landmark" class="w-5 h-5 text-autumn-600"></i>
+          <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Literature, Flight &amp; Culture Editorials</h2>
+        </div>
+        <p class="text-xs text-stone-500">
+          Four deep editorial essays exploring the core scientific, philosophical, and cinematic themes covered in today's conversation.
+        </p>
+      </div>
+
+      <div id="editorial-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Populated via renderEditorialTopics() -->
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 5: PEACEFUL PRACTICE SANCTUARY                                  -->
+    <!-- =================================================================== -->
+    <section id="tab-panel-practice" class="tab-panel hidden space-y-7">
+      
+      <!-- Interactive Flashcard Deck -->
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between border-b border-[#e6decb] pb-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="layers" class="w-5 h-5 text-sage-600"></i>
+              <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Interactive Vocabulary Flashcards</h2>
+            </div>
+            <p class="text-xs text-stone-500 mt-0.5">Click any card to flip and reveal definitions, German equivalents, and lesson context</p>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <span id="fc-counter" class="text-xs font-mono font-bold text-stone-500">1 / 12</span>
+            <div class="flex items-center gap-1">
+              <button onclick="prevFlashcard()" class="p-1.5 rounded-lg bg-parchment-100 hover:bg-parchment-200 text-stone-700 transition">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="nextFlashcard()" class="p-1.5 rounded-lg bg-parchment-100 hover:bg-parchment-200 text-stone-700 transition">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Container with 3D Flip -->
+        <div class="max-w-xl mx-auto perspective-[1000px] py-4">
+          <div id="flashcard" onclick="flipFlashcard()" class="flashcard-inner relative w-full h-72 cursor-pointer rounded-3xl shadow-sm border border-[#dfd0b5] bg-gradient-to-br from-parchment-50 to-white p-7 flex flex-col justify-between">
+            
+            <!-- Front Face -->
+            <div class="flashcard-front absolute inset-0 p-7 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span id="fc-badge-front" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-autumn-100 text-autumn-800">C2 • Noun</span>
+                <span class="text-[11px] text-stone-400 font-mono">Click to flip ↷</span>
+              </div>
+              <div class="text-center my-auto space-y-1.5">
+                <h3 id="fc-word-front" class="font-serif text-3xl font-bold text-slatewarm-900">serendipity</h3>
+                <p id="fc-ipa-front" class="font-mono text-xs text-stone-500">/ˌser.ənˈdɪp.ə.ti/</p>
+              </div>
+              <div class="text-center text-[11px] text-stone-400">
+                Louie's English Studio Practice
+              </div>
+            </div>
+
+            <!-- Back Face -->
+            <div class="flashcard-back absolute inset-0 p-7 flex flex-col justify-between bg-gradient-to-br from-white to-parchment-50 rounded-3xl">
+              <div class="flex items-center justify-between">
+                <span id="fc-badge-back" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sage-100 text-sage-800">C2 • Noun</span>
+                <span class="text-[11px] text-stone-400 font-mono">Click to flip ↶</span>
+              </div>
+              <div class="space-y-2.5 my-auto text-left">
+                <p id="fc-def-back" class="text-xs sm:text-sm text-slatewarm-900 font-medium leading-relaxed">Finding valuable, pleasant things entirely by happy chance.</p>
+                <div id="fc-de-back" class="p-2 rounded-xl bg-parchment-100 border border-parchment-300 text-xs font-semibold text-autumn-800">🇩🇪 Deutsch: glücklicher Zufall</div>
+                <blockquote id="fc-quote-back" class="border-l-2 border-stone-300 pl-2 text-[11px] italic text-stone-500 font-serif">"Louie: It was pure serendipity."</blockquote>
+              </div>
+              <div class="text-center text-[11px] text-stone-400">
+                Louie's English Studio Practice
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button onclick="speakCurrentFlashcard()" class="px-4 py-2 rounded-xl bg-parchment-100 hover:bg-parchment-200 border border-parchment-300 text-slatewarm-900 font-semibold text-xs inline-flex items-center gap-2 transition">
+            <i data-lucide="volume-2" class="w-4 h-4 text-autumn-600"></i>
+            <span>Listen to Pronunciation</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- The Idiom Gym: Scenario Matcher -->
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-5">
+        <div class="border-b border-[#e6decb] pb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="dumbbell" class="w-5 h-5 text-autumn-600"></i>
+            <h2 class="font-serif text-2xl font-bold text-slatewarm-900">The Idiom Gym: Scenario Matcher</h2>
+          </div>
+          <p class="text-xs text-stone-500 mt-0.5">Select the idiomatic phrase that best matches each real-world conversational challenge</p>
+        </div>
+
+        <div id="idiom-gym-container" class="space-y-4 pt-2">
+          <!-- Populated via renderIdiomGym() -->
+        </div>
+      </div>
+
+      <!-- 6-Question Context Quiz -->
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between border-b border-[#e6decb] pb-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-square" class="w-5 h-5 text-sage-600"></i>
+              <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Context &amp; Science Quiz</h2>
+            </div>
+            <p class="text-xs text-stone-500 mt-0.5">Test your recall of governance, Stasi history, geopolitics, civil rights, and English idioms</p>
+          </div>
+          <div id="quiz-score-badge" class="px-3 py-1 rounded-full bg-sage-100 text-sage-800 font-mono font-bold text-xs">
+            Score: 0 / 6
+          </div>
+        </div>
+
+        <div id="quiz-questions-container" class="space-y-5 pt-2">
+          <!-- Populated via renderQuiz() -->
+        </div>
+      </div>
+
+      <!-- Next Lesson Reflections -->
+      <div class="sanctuary-card rounded-3xl p-6 sm:p-8 space-y-4">
+        <div class="border-b border-[#e6decb] pb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="feather" class="w-5 h-5 text-autumn-600"></i>
+            <h2 class="font-serif text-2xl font-bold text-slatewarm-900">Reflections for Your Civil Rights Presentation &amp; Next Lesson</h2>
+          </div>
+          <p class="text-xs text-stone-500 mt-0.5">Three thought-provoking prompts to sharpen your upcoming presentation and C1 debate skills</p>
+        </div>
+
+        <div id="reflections-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <!-- Populated via renderReflections() -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="how-it-works" class="sanctuary-card rounded-3xl p-6 sm:p-8 text-center space-y-3 no-print">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-sage-600 to-autumn-600 flex items-center justify-center text-white font-serif text-xl font-bold mx-auto">
+        L
+      </div>
+      <h3 class="font-serif font-bold text-xl text-slatewarm-900">Louie's English Sanctuary • Preply Partner Portal</h3>
+      <p class="text-xs text-stone-500 max-w-xl mx-auto leading-relaxed">
+        Crafted with calm attention to detail for Clemens' lesson (14 November 2026). Designed to provide zero-stress review, pristine audio synthesis, and lasting confidence on the global stage.
+      </p>
+      <div class="pt-2 text-[11px] font-mono text-stone-400">
+        Bath Stone &bull; Winchester Mist &bull; Twilight Study &bull; Built with Tailwind CSS, Lucide, Tippy.js &amp; Web Audio API
+      </div>
+    </footer>
+
+  </main>
+  <script>
+    function v(key, displayWord) {
+      var item = (typeof VOCAB_DB !== 'undefined' && VOCAB_DB[key]) ? VOCAB_DB[key] : null;
+      var label = displayWord || (item ? item.word : key);
+      return '<span class="vocab-mark" data-vkey="' + key + '" onclick="inspectVocab(\'' + key + '\')">' + label + '</span>';
+    }
+
+    function fixBadge(corrected, rawMistake) {
+      return '<span class="asr-fix-pill" title="Note-taker misheard \'' + corrected + '\' as \'' + rawMistake + '\'">⚡ Fixed: "' + corrected + '" <span class="text-stone-400 font-normal">(heard: "' + rawMistake + '")</span></span>';
+    }
+
+    const VOCAB_DB = {
+    "overrule":  {
+                     "word":  "overrule",
+                     "ipa":  "/ˌəʊ.vəˈruːl/",
+                     "pos":  "verb",
+                     "level":  "C1",
+                     "time":  "00:49",
+                     "turnId":  "turn-4",
+                     "cat":  "school-society",
+                     "def":  "To use official authority or a majority vote to reject or overturn someone else\u0027s decision.",
+                     "quote":  "Clemens (00:49): \"...they have overruled him that we can have a party in our cafeteria.\"",
+                     "l1":  "überstimmen / außer Kraft setzen"
+                 },
+    "quarter":  {
+                    "word":  "quarter",
+                    "ipa":  "/ˈkwɔː.tər/",
+                    "pos":  "noun",
+                    "level":  "B2",
+                    "time":  "01:29",
+                    "turnId":  "turn-6",
+                    "cat":  "language-idioms",
+                    "def":  "One of four equal parts of a year (three months); historically also shelter or mercy.",
+                    "quote":  "Clemens (01:29): \"What is it called? A quarter. Or, if you put a year in four different times...\"",
+                    "l1":  "das Quartal / das Viertel"
+                },
+    "show-no-quarter":  {
+                            "word":  "show them no quarter",
+                            "ipa":  "/ʃəʊ ðəm nəʊ ˈkwɔː.tər/",
+                            "pos":  "idiom",
+                            "level":  "C2",
+                            "time":  "01:55",
+                            "turnId":  "turn-9",
+                            "cat":  "language-idioms",
+                            "def":  "To show no mercy or pity to an opponent (originally from refusing shelter to defeated enemies).",
+                            "quote":  "Louie (01:55): \"Show them no quarter — it means no mercy.\"",
+                            "l1":  "keine Gnade zeigen / keinen Pardon geben"
+                        },
+    "ingrained":  {
+                      "word":  "ingrained",
+                      "ipa":  "/ɪnˈɡreɪnd/",
+                      "pos":  "adjective",
+                      "level":  "C1",
+                      "time":  "03:04",
+                      "turnId":  "turn-12",
+                      "cat":  "language-idioms",
+                      "def":  "Firmly fixed in someone\u0027s habits, beliefs, or culture so that it is very difficult to change.",
+                      "quote":  "Louie (03:04): \"It\u0027s just so ingrained in us as Navy tradition.\"",
+                      "l1":  "tief verwurzelt / fest verankert"
+                  },
+    "relatable":  {
+                      "word":  "relatable",
+                      "ipa":  "/rɪˈleɪ.tə.bəl/",
+                      "pos":  "adjective",
+                      "level":  "C1",
+                      "time":  "04:51",
+                      "turnId":  "turn-16",
+                      "cat":  "language-idioms",
+                      "def":  "Easy to understand, connect with, or feel sympathy for because of shared experiences.",
+                      "quote":  "Louie (04:51): \"A word you might use is relatable — they are relatable.\"",
+                      "l1":  "nahbar / nachvollziehbar"
+                  },
+    "representative":  {
+                           "word":  "representative",
+                           "ipa":  "/ˌrep.rɪˈzen.tə.tɪv/",
+                           "pos":  "noun",
+                           "level":  "B2",
+                           "time":  "05:05",
+                           "turnId":  "turn-18",
+                           "cat":  "school-society",
+                           "def":  "A person chosen or elected to speak, vote, or act on behalf of a larger group.",
+                           "quote":  "Clemens (05:05): \"Four of them go to the student council... and four votes go to the parent representatives.\"",
+                           "l1":  "der/die Vertreter(in) / Repräsentant(in)"
+                       },
+    "doctorate":  {
+                      "word":  "doctorate",
+                      "ipa":  "/ˈdɒk.tər.ət/",
+                      "pos":  "noun",
+                      "level":  "C1",
+                      "time":  "06:53",
+                      "turnId":  "turn-19",
+                      "cat":  "school-society",
+                      "def":  "The highest academic degree awarded by a university (a PhD).",
+                      "quote":  "Louie (06:53): \"A doctorate. Yes, he has a doctorate in science.\"",
+                      "l1":  "der Doktortitel / die Promotion"
+                  },
+    "school-governors":  {
+                             "word":  "school governors",
+                             "ipa":  "/skuːl ˈɡʌv.ən.əz/",
+                             "pos":  "noun phrase",
+                             "level":  "C1",
+                             "time":  "07:52",
+                             "turnId":  "turn-21",
+                             "cat":  "school-society",
+                             "def":  "In the UK, a volunteer board that oversees a school\u0027s strategic direction, budget, and accountability.",
+                             "quote":  "Louie (07:52): \"We have the school governors. They control the direction of the school.\"",
+                             "l1":  "der Schulrat / das Schulgremium"
+                         },
+    "privileges":  {
+                       "word":  "privileges",
+                       "ipa":  "/ˈprɪv.əl.ɪdʒ.ɪz/",
+                       "pos":  "noun",
+                       "level":  "B2",
+                       "time":  "08:30",
+                       "turnId":  "turn-21",
+                       "cat":  "school-society",
+                       "def":  "Special legal rights, advantages, or authorities granted to a particular person or role.",
+                       "quote":  "Louie (08:30): \"I have special privileges in England, which is quite nice.\"",
+                       "l1":  "die Privilegien / Vorrechte"
+                   },
+    "vetting-process":  {
+                            "word":  "vetting process",
+                            "ipa":  "/ˈvet.ɪŋ ˈprəʊ.ses/",
+                            "pos":  "noun phrase",
+                            "level":  "C1",
+                            "time":  "09:20",
+                            "turnId":  "turn-21",
+                            "cat":  "economics-law",
+                            "def":  "A careful background check to verify someone\u0027s trustworthiness, qualifications, and suitability.",
+                            "quote":  "Louie (09:20): \"I had to go through a vetting process.\"",
+                            "l1":  "die Sicherheitsüberprüfung / Eignungsprüfung"
+                        },
+    "due-diligence":  {
+                          "word":  "due diligence",
+                          "ipa":  "/ˌdʒuː ˈdɪl.ɪ.dʒəns/",
+                          "pos":  "noun phrase",
+                          "level":  "C2",
+                          "time":  "10:05",
+                          "turnId":  "turn-21",
+                          "cat":  "economics-law",
+                          "def":  "The reasonable, thorough investigation and care a responsible person must take before signing off on something.",
+                          "quote":  "Louie (10:05): \"Well, I have to do my due diligence. I have to check first that it\u0027s safe.\"",
+                          "l1":  "die gebotene Sorgfalt / Sorgfaltspflicht"
+                      },
+    "executive-board":  {
+                            "word":  "executive board",
+                            "ipa":  "/ɪɡˈzek.jə.tɪv bɔːd/",
+                            "pos":  "noun phrase",
+                            "level":  "C1",
+                            "time":  "14:12",
+                            "turnId":  "turn-26",
+                            "cat":  "school-society",
+                            "def":  "The senior decision-making committee that manages an organization or institution.",
+                            "quote":  "Louie (14:12): \"Governors is slightly different because they are their own board. It\u0027s like the executive board.\"",
+                            "l1":  "der Vorstand / das Leitungsgremium"
+                        },
+    "work-time-fraud":  {
+                            "word":  "work-time fraud",
+                            "ipa":  "/wɜːk taɪm frɔːd/",
+                            "pos":  "noun phrase",
+                            "level":  "C1",
+                            "time":  "14:56",
+                            "turnId":  "turn-27",
+                            "cat":  "economics-law",
+                            "def":  "Claiming paid or official working hours while not actually performing work (German: Arbeitszeitbetrug).",
+                            "quote":  "Clemens (14:56): \"It\u0027s a word that\u0027s right now really trending in Germany: work-time fraud.\"",
+                            "l1":  "der Arbeitszeitbetrug"
+                        },
+    "passive-member":  {
+                           "word":  "passive member",
+                           "ipa":  "/ˈpæs.ɪv ˈmem.bər/",
+                           "pos":  "noun phrase",
+                           "level":  "B2",
+                           "time":  "15:22",
+                           "turnId":  "turn-29",
+                           "cat":  "school-society",
+                           "def":  "Someone officially listed as part of a group who does not actively attend meetings or take part.",
+                           "quote":  "Clemens (15:22): \"I\u0027m still on the student council, but more as a passive member.\"",
+                           "l1":  "das passive Mitglied"
+                       },
+    "extracurricular":  {
+                            "word":  "extracurricular",
+                            "ipa":  "/ˌek.strə.kəˈrɪk.jə.lər/",
+                            "pos":  "adjective",
+                            "level":  "C1",
+                            "time":  "17:35",
+                            "turnId":  "turn-34",
+                            "cat":  "school-society",
+                            "def":  "Activities, clubs, or sports pursued by students outside the regular academic syllabus.",
+                            "quote":  "Louie (17:35): \"It\u0027s extracurricular activities.\"",
+                            "l1":  "außerschulisch"
+                        },
+    "curriculum":  {
+                       "word":  "curriculum",
+                       "ipa":  "/kəˈrɪk.jə.ləm/",
+                       "pos":  "noun",
+                       "level":  "C1",
+                       "time":  "19:45",
+                       "turnId":  "turn-40",
+                       "cat":  "school-society",
+                       "def":  "The official set of subjects and topics taught in a school or course of study.",
+                       "quote":  "Clemens (19:45): \"So, curriculum, or something like this.\"",
+                       "l1":  "der Lehrplan"
+                   },
+    "narrow-minded":  {
+                          "word":  "narrow-minded",
+                          "ipa":  "/ˌnær.əʊˈmaɪn.dɪd/",
+                          "pos":  "adjective",
+                          "level":  "B2",
+                          "time":  "21:10",
+                          "turnId":  "turn-41",
+                          "cat":  "language-idioms",
+                          "def":  "Unwilling to consider new ideas, wider perspectives, or different ways of doing things.",
+                          "quote":  "Louie (21:10): \"Because they\u0027re just so narrow-minded, and they think they\u0027re going to do one thing.\"",
+                          "l1":  "engstirnig"
+                      },
+    "blow-out-of-the-water":  {
+                                  "word":  "blow them out of the water",
+                                  "ipa":  "/bləʊ ðəm aʊt əv ðə ˈwɔː.tər/",
+                                  "pos":  "idiom",
+                                  "level":  "C2",
+                                  "time":  "22:15",
+                                  "turnId":  "turn-41",
+                                  "cat":  "language-idioms",
+                                  "def":  "To completely outperform, defeat, or surpass competitors by a huge margin.",
+                                  "quote":  "Louie (22:15): \"Later in your career, you can blow them out of the water.\"",
+                                  "l1":  "jemanden haushoch übertreffen / aus dem Feld schlagen"
+                              },
+    "jam-packed":  {
+                       "word":  "jam-packed",
+                       "ipa":  "/ˌdʒæmˈpækt/",
+                       "pos":  "adjective",
+                       "level":  "C1",
+                       "time":  "22:55",
+                       "turnId":  "turn-41",
+                       "cat":  "language-idioms",
+                       "def":  "Completely full of people, activities, or achievements with no spare space.",
+                       "quote":  "Louie (22:55): \"The university just accepted me on my CV because it was jam-packed.\"",
+                       "l1":  "vollgestopft / prall gefüllt"
+                   },
+    "surveillance":  {
+                         "word":  "surveillance",
+                         "ipa":  "/səˈveɪ.ləns/",
+                         "pos":  "noun",
+                         "level":  "C1",
+                         "time":  "24:54",
+                         "turnId":  "turn-47",
+                         "cat":  "politics-history",
+                         "def":  "Close, continuous observation of people or places, especially by police, intelligence agencies, or cameras.",
+                         "quote":  "Clemens (24:54): \"Yeah, I think it\u0027s because of the surveillance. They film everything.\"",
+                         "l1":  "die Überwachung"
+                     },
+    "social-scoring":  {
+                           "word":  "social scoring",
+                           "ipa":  "/ˈsəʊ.ʃəl ˈskɔː.rɪŋ/",
+                           "pos":  "noun phrase",
+                           "level":  "C1",
+                           "time":  "25:20",
+                           "turnId":  "turn-48",
+                           "cat":  "politics-history",
+                           "def":  "A system in which citizens\u0027 behavior is tracked and rated by the state to grant or restrict privileges.",
+                           "quote":  "Louie (25:20): \"Yes, the social scoring — the social currency they get rated in.\"",
+                           "l1":  "das Sozialkreditsystem / soziale Bewertung"
+                       },
+    "putting-on-a-show":  {
+                              "word":  "putting on a show",
+                              "ipa":  "/ˈpʊt.ɪŋ ɒn ə ʃəʊ/",
+                              "pos":  "idiom",
+                              "level":  "C1",
+                              "time":  "26:10",
+                              "turnId":  "turn-48",
+                              "cat":  "language-idioms",
+                              "def":  "Acting in an exaggerated or insincere way to create a particular impression for observers.",
+                              "quote":  "Louie (26:10): \"I think they were just putting on a show.\"",
+                              "l1":  "eine Show abziehen / etwas vorspielen"
+                          },
+    "bribe":  {
+                  "word":  "bribe",
+                  "ipa":  "/braɪb/",
+                  "pos":  "noun / verb",
+                  "level":  "B2",
+                  "time":  "27:30",
+                  "turnId":  "turn-50",
+                  "cat":  "economics-law",
+                  "def":  "Money or a favor offered dishonestly to persuade someone in authority to act in your favor.",
+                  "quote":  "Louie (27:30): \"However, the Vietnamese border guards want bribes.\"",
+                  "l1":  "das Schmiergeld / bestechen"
+              },
+    "rampant":  {
+                    "word":  "rampant",
+                    "ipa":  "/ˈræm.pənt/",
+                    "pos":  "adjective",
+                    "level":  "C2",
+                    "time":  "27:55",
+                    "turnId":  "turn-50",
+                    "cat":  "politics-history",
+                    "def":  "Spreading or happening everywhere in an uncontrolled, unchecked way.",
+                    "quote":  "Louie (27:55): \"And it\u0027s rampant. It\u0027s absolutely rampant.\"",
+                    "l1":  "weit verbreitet / zügellos / grassierend"
+                },
+    "immaculate":  {
+                       "word":  "immaculate",
+                       "ipa":  "/ɪˈmæk.jə.lət/",
+                       "pos":  "adjective",
+                       "level":  "C1",
+                       "time":  "28:35",
+                       "turnId":  "turn-50",
+                       "cat":  "language-idioms",
+                       "def":  "Spotlessly clean, neat, or completely free from flaws or mistakes.",
+                       "quote":  "Louie (28:35): \"So because the Chinese border is immaculate, they do it by the rulebook.\"",
+                       "l1":  "makellos / tadellos"
+                   },
+    "by-the-rulebook":  {
+                            "word":  "by the rulebook",
+                            "ipa":  "/baɪ ðə ˈruːl.bʊk/",
+                            "pos":  "idiom",
+                            "level":  "C1",
+                            "time":  "28:40",
+                            "turnId":  "turn-50",
+                            "cat":  "language-idioms",
+                            "def":  "Following every official rule and procedure strictly without shortcuts or informal exceptions.",
+                            "quote":  "Louie (28:40): \"They do it by the rulebook. They\u0027re so professional.\"",
+                            "l1":  "streng nach Vorschrift"
+                        },
+    "hassle":  {
+                   "word":  "hassle",
+                   "ipa":  "/ˈhæs.əl/",
+                   "pos":  "noun",
+                   "level":  "B2",
+                   "time":  "29:15",
+                   "turnId":  "turn-50",
+                   "cat":  "language-idioms",
+                   "def":  "Annoying trouble, inconvenience, or unnecessary difficulty.",
+                   "quote":  "Louie (29:15): \"This saved me a lot of hassle.\"",
+                   "l1":  "der Aufwand / Ärger / Stress"
+               },
+    "police-state":  {
+                         "word":  "police state",
+                         "ipa":  "/pəˈliːs steɪt/",
+                         "pos":  "noun phrase",
+                         "level":  "C1",
+                         "time":  "31:35",
+                         "turnId":  "turn-54",
+                         "cat":  "politics-history",
+                         "def":  "A country whose government exercises rigid, repressive control over citizens through police and surveillance.",
+                         "quote":  "Louie (31:35): \"You feel you\u0027re going into a police state.\"",
+                         "l1":  "der Polizeistaat"
+                     },
+    "intelligence-agency":  {
+                                "word":  "intelligence agency",
+                                "ipa":  "/ɪnˈtel.ɪ.dʒəns ˈeɪ.dʒən.si/",
+                                "pos":  "noun phrase",
+                                "level":  "C1",
+                                "time":  "32:33",
+                                "turnId":  "turn-57",
+                                "cat":  "politics-history",
+                                "def":  "A government organization responsible for collecting, analyzing, and exploiting secret information.",
+                                "quote":  "Clemens (32:33): \"The CIA ranked the best intelligence agencies around the world.\"",
+                                "l1":  "der Geheimdienst / Nachrichtendienst"
+                            },
+    "coercion":  {
+                     "word":  "coercion",
+                     "ipa":  "/kəʊˈɜː.ʃən/",
+                     "pos":  "noun",
+                     "level":  "C2",
+                     "time":  "38:08",
+                     "turnId":  "turn-65",
+                     "cat":  "politics-history",
+                     "def":  "The practice of persuading or forcing someone to do something through threats, pressure, or intimidation.",
+                     "quote":  "Louie (38:08): \"It\u0027s more like societal, psychological coercion.\"",
+                     "l1":  "der Zwang / die Nötigung"
+                 },
+    "paranoia":  {
+                     "word":  "paranoia",
+                     "ipa":  "/ˌpær.əˈnɔɪ.ə/",
+                     "pos":  "noun",
+                     "level":  "C1",
+                     "time":  "38:23",
+                     "turnId":  "turn-67",
+                     "cat":  "politics-history",
+                     "def":  "Intense, constant suspicion and fear that others are watching, plotting against, or betraying you.",
+                     "quote":  "Louie (38:23): \"Yeah, that\u0027s it — they create paranoia. Social paranoia.\"",
+                     "l1":  "die Paranoia / das Verfolgungswahn-Klima"
+                 },
+    "authoritarianism":  {
+                             "word":  "authoritarianism",
+                             "ipa":  "/ɔːˌθɒr.ɪˈteə.ri.ə.nɪ.zəm/",
+                             "pos":  "noun",
+                             "level":  "C2",
+                             "time":  "40:28",
+                             "turnId":  "turn-74",
+                             "cat":  "politics-history",
+                             "def":  "A political system demanding strict obedience to central authority at the expense of personal freedom.",
+                             "quote":  "Louie (40:28): \"This is not communism, this is authoritarianism — total control.\"",
+                             "l1":  "der Autoritarismus"
+                         },
+    "compensate":  {
+                       "word":  "compensate",
+                       "ipa":  "/ˈkɒm.pən.seɪt/",
+                       "pos":  "verb",
+                       "level":  "C1",
+                       "time":  "43:04",
+                       "turnId":  "turn-77",
+                       "cat":  "economics-law",
+                       "def":  "To pay someone money or provide something of value to make up for a loss, injury, or seizure.",
+                       "quote":  "Clemens (43:04): \"There is a good term for that: compensate — to compensate for the loss.\"",
+                       "l1":  "entschädigen / ausgleichen"
+                   },
+    "exile":  {
+                  "word":  "exile",
+                  "ipa":  "/ˈek.saɪl/",
+                  "pos":  "noun",
+                  "level":  "C1",
+                  "time":  "43:26",
+                  "turnId":  "turn-78",
+                  "cat":  "politics-history",
+                  "def":  "Being forced or choosing to live away from one\u0027s native country, often for political reasons.",
+                  "quote":  "Louie (43:26): \"The billionaire went into exile — had to run away.\"",
+                  "l1":  "das Exil"
+              },
+    "watch-like-a-hawk":  {
+                              "word":  "watch them like a hawk",
+                              "ipa":  "/wɒtʃ ðəm laɪk ə hɔːk/",
+                              "pos":  "idiom",
+                              "level":  "C1",
+                              "time":  "43:50",
+                              "turnId":  "turn-78",
+                              "cat":  "language-idioms",
+                              "def":  "To monitor someone or something continuously and very closely.",
+                              "quote":  "Louie (43:50): \"China allows their businesses to flourish, but they watch them like a hawk.\"",
+                              "l1":  "jemanden mit Argusaugen beobachten"
+                          },
+    "illusion":  {
+                     "word":  "illusion",
+                     "ipa":  "/ɪˈluː.ʒən/",
+                     "pos":  "noun",
+                     "level":  "B2",
+                     "time":  "48:00",
+                     "turnId":  "turn-84",
+                     "cat":  "politics-history",
+                     "def":  "A false impression or deceptive appearance designed to make people believe something untrue.",
+                     "quote":  "Louie (48:00): \"They pretend to clean the streets — it\u0027s that illusion.\"",
+                     "l1":  "die Illusion / der Schein"
+                 },
+    "abstain":  {
+                    "word":  "abstain",
+                    "ipa":  "/əbˈsteɪn/",
+                    "pos":  "verb",
+                    "level":  "C1",
+                    "time":  "49:10",
+                    "turnId":  "turn-87",
+                    "cat":  "politics-history",
+                    "def":  "To deliberately choose not to vote or take part in an action.",
+                    "quote":  "Louie (49:10): \"When I abstain, there\u0027s a point where you can say, \u0027I don\u0027t want to vote.\u0027\"",
+                    "l1":  "sich enthalten"
+                },
+    "fresh-blood":  {
+                        "word":  "fresh blood",
+                        "ipa":  "/freʃ blʌd/",
+                        "pos":  "idiom",
+                        "level":  "C1",
+                        "time":  "52:30",
+                        "turnId":  "turn-95",
+                        "cat":  "language-idioms",
+                        "def":  "New people with fresh energy, ideas, and perspectives brought into an organization or political system.",
+                        "quote":  "Louie (52:30): \"The parties are still there, but we need fresh blood, fresh brains.\"",
+                        "l1":  "frischer Wind / neue Gesichter"
+                    },
+    "representative-democracy":  {
+                                     "word":  "representative democracy",
+                                     "ipa":  "/ˌrep.rɪˈzen.tə.tɪv dɪˈmɒk.rə.si/",
+                                     "pos":  "noun phrase",
+                                     "level":  "C1",
+                                     "time":  "53:19",
+                                     "turnId":  "turn-96",
+                                     "cat":  "politics-history",
+                                     "def":  "A system of government in which citizens elect officials to represent their interests and make laws.",
+                                     "quote":  "Clemens (53:19): \"So we got a pretty thought-through democracy — representative democracy.\"",
+                                     "l1":  "die repräsentative Demokratie"
+                                 },
+    "pension":  {
+                    "word":  "pension",
+                    "ipa":  "/ˈpen.ʃən/",
+                    "pos":  "noun",
+                    "level":  "B2",
+                    "time":  "55:10",
+                    "turnId":  "turn-96",
+                    "cat":  "economics-law",
+                    "def":  "A regular income paid by the state or a fund to people after they retire from work.",
+                    "quote":  "Clemens (55:10): \"They say, \u0027We are going to raise your pension,\u0027 while the youth has to pay more later on.\"",
+                    "l1":  "die Rente / Pension"
+                },
+    "crumbling":  {
+                      "word":  "crumbling",
+                      "ipa":  "/ˈkrʌm.blɪŋ/",
+                      "pos":  "adjective / verb",
+                      "level":  "C1",
+                      "time":  "58:40",
+                      "turnId":  "turn-105",
+                      "cat":  "economics-law",
+                      "def":  "Gradually breaking down, weakening, or collapsing under pressure.",
+                      "quote":  "Louie (58:40): \"The pension system is crumbling in front of us.\"",
+                      "l1":  "bröckelnd / zerfallend"
+                  },
+    "civil-rights":  {
+                         "word":  "civil rights",
+                         "ipa":  "/ˈsɪv.əl raɪts/",
+                         "pos":  "noun phrase",
+                         "level":  "B2",
+                         "time":  "59:25",
+                         "turnId":  "turn-106",
+                         "cat":  "civil-rights",
+                         "def":  "The fundamental legal rights of citizens to political and social freedom and equality.",
+                         "quote":  "Clemens (59:25): \"One in English about slavery and civil rights — a fifteen-minute presentation.\"",
+                         "l1":  "die Bürgerrechte"
+                     },
+    "colonialism":  {
+                        "word":  "colonialism",
+                        "ipa":  "/kəˈləʊ.ni.ə.lɪ.zəm/",
+                        "pos":  "noun",
+                        "level":  "C1",
+                        "time":  "60:55",
+                        "turnId":  "turn-108",
+                        "cat":  "civil-rights",
+                        "def":  "The policy or practice of acquiring full or partial political control over another country and exploiting it economically.",
+                        "quote":  "Clemens (60:55): \"Maybe these civil rights were only made possible because of colonialism and things in the past.\"",
+                        "l1":  "der Kolonialismus"
+                    },
+    "indentured-servitude":  {
+                                 "word":  "indentured servitude",
+                                 "ipa":  "/ɪnˈden.tʃəd ˈsɜː.vɪ.tʃuːd/",
+                                 "pos":  "noun phrase",
+                                 "level":  "C2",
+                                 "time":  "62:00",
+                                 "turnId":  "turn-109",
+                                 "cat":  "civil-rights",
+                                 "def":  "A historical labor system where a person was contracted to work without pay for a set number of years.",
+                                 "quote":  "Louie (62:00): \"Even though there was indentured servitude and slavery within the empire...\"",
+                                 "l1":  "die Schuldknechtschaft / Vertragsarbeiterschaft"
+                             },
+    "tribunal":  {
+                     "word":  "tribunal",
+                     "ipa":  "/traɪˈbjuː.nəl/",
+                     "pos":  "noun",
+                     "level":  "C1",
+                     "time":  "62:45",
+                     "turnId":  "turn-109",
+                     "cat":  "economics-law",
+                     "def":  "A special court or official body appointed to judge specific legal disputes or claims.",
+                     "quote":  "Louie (62:45): \"England was famous for court tribunals and court cases with slavery.\"",
+                     "l1":  "das Tribunal / Sondergericht"
+                 },
+    "abolish":  {
+                    "word":  "abolish",
+                    "ipa":  "/əˈbɒl.ɪʃ/",
+                    "pos":  "verb",
+                    "level":  "C1",
+                    "time":  "65:22",
+                    "turnId":  "turn-113",
+                    "cat":  "civil-rights",
+                    "def":  "To formally put an end to a law, system, or institution such as slavery.",
+                    "quote":  "Louie (65:22): \"He had a famous saying when he was trying to abolish slavery.\"",
+                    "l1":  "abschaffen / aufheben"
+                },
+    "segregation":  {
+                        "word":  "segregation",
+                        "ipa":  "/ˌseɡ.rɪˈɡeɪ.ʃən/",
+                        "pos":  "noun",
+                        "level":  "C1",
+                        "time":  "66:44",
+                        "turnId":  "turn-119",
+                        "cat":  "civil-rights",
+                        "def":  "The enforced separation of different racial groups in schools, housing, and public life.",
+                        "quote":  "Louie (66:44): \"During the civil rights movement, there was segregation in America.\"",
+                        "l1":  "die Rassentrennung"
+                    },
+    "to-the-detriment-of":  {
+                                "word":  "to the detriment of",
+                                "ipa":  "/tə ðə ˈdet.rɪ.mənt əv/",
+                                "pos":  "phrase",
+                                "level":  "C2",
+                                "time":  "67:30",
+                                "turnId":  "turn-121",
+                                "cat":  "language-idioms",
+                                "def":  "In a way that causes harm, disadvantage, or damage to someone or something.",
+                                "quote":  "Louie (67:30): \"Great at that time, but to the detriment of white Americans.\"",
+                                "l1":  "zum Nachteil von / auf Kosten von"
+                            },
+    "broken-clock":  {
+                         "word":  "a broken clock is right twice a day",
+                         "ipa":  "/ə ˈbrəʊ.kən klɒk ɪz raɪt twaɪs ə deɪ/",
+                         "pos":  "idiom",
+                         "level":  "C1",
+                         "time":  "68:20",
+                         "turnId":  "turn-121",
+                         "cat":  "language-idioms",
+                         "def":  "Even someone or something generally wrong or flawed can occasionally do or say the right thing.",
+                         "quote":  "Louie (68:20): \"Because a broken clock is right twice a day — so they\u0027re doing something nice.\"",
+                         "l1":  "Auch ein blindes Huhn findet mal ein Korn"
+                     },
+    "factions":  {
+                     "word":  "factions",
+                     "ipa":  "/ˈfæk.ʃənz/",
+                     "pos":  "noun",
+                     "level":  "C1",
+                     "time":  "69:05",
+                     "turnId":  "turn-121",
+                     "cat":  "civil-rights",
+                     "def":  "Small, organized dissenting groups within a larger political or social movement.",
+                     "quote":  "Louie (69:05): \"Because you\u0027d have different factions inside the social justice movement.\"",
+                     "l1":  "die Fraktionen / Flügel (innerhalb einer Bewegung)"
+                 }
+};
+    const ASR_FIXES = [
+    {
+        "time":  "00:00",
+        "speaker":  "Louie",
+        "wrong":  "Clement",
+        "right":  "Clemens",
+        "note":  "Student\u0027s name misheard at the start of the lesson."
+    },
+    {
+        "time":  "01:47",
+        "speaker":  "Louie",
+        "wrong":  "Quater",
+        "right":  "Quarter",
+        "note":  "Three-month school term / one fourth of a year."
+    },
+    {
+        "time":  "05:43",
+        "speaker":  "Clemens",
+        "wrong":  "outrule",
+        "right":  "overrule",
+        "note":  "Student council + parents overriding the principal."
+    },
+    {
+        "time":  "06:15",
+        "speaker":  "Clemens",
+        "wrong":  "elites to Google",
+        "right":  "elite school",
+        "note":  "Referring to the school\u0027s former East German status."
+    },
+    {
+        "time":  "06:25",
+        "speaker":  "Clemens",
+        "wrong":  "IITS",
+        "right":  "1980s",
+        "note":  "Policies and teachers remaining from the 1980s."
+    },
+    {
+        "time":  "07:25",
+        "speaker":  "Clemens",
+        "wrong":  "knew Announs",
+        "right":  "knows",
+        "note":  "Biology professor still knowing every current study."
+    },
+    {
+        "time":  "15:22",
+        "speaker":  "Clemens",
+        "wrong":  "Awitze, Petruch",
+        "right":  "Arbeitszeitbetrug",
+        "note":  "German trending term for work-time fraud."
+    },
+    {
+        "time":  "15:50",
+        "speaker":  "Clemens",
+        "wrong":  "planum",
+        "right":  "Plenum",
+        "note":  "50-person student parliament assembly."
+    },
+    {
+        "time":  "27:05",
+        "speaker":  "Louie",
+        "wrong":  "Huai",
+        "right":  "Hue",
+        "note":  "City in central Vietnam where Louie lives."
+    },
+    {
+        "time":  "28:50",
+        "speaker":  "Louie",
+        "wrong":  "rival card",
+        "right":  "arrival card",
+        "note":  "Immigration form filled out at the Chinese border."
+    },
+    {
+        "time":  "31:15",
+        "speaker":  "Louie",
+        "wrong":  "Munix Airport",
+        "right":  "Munich Airport",
+        "note":  "Comparing airport security across Europe and China."
+    },
+    {
+        "time":  "34:00",
+        "speaker":  "Clemens",
+        "wrong":  "Starzi / Nastasi",
+        "right":  "Stasi",
+        "note":  "East German Ministry for State Security."
+    },
+    {
+        "time":  "42:10",
+        "speaker":  "Louie",
+        "wrong":  "Bin / Bin Pearl",
+        "right":  "Vin / Vinpearl",
+        "note":  "Vietnam\u0027s largest conglomerate (Vingroup / Vinpearl)."
+    },
+    {
+        "time":  "66:35",
+        "speaker":  "Louie",
+        "wrong":  "Black Slack Panthers",
+        "right":  "Black Panthers",
+        "note":  "Radical civil rights organization in the 1960s US."
+    }
+];
+    const NATURAL_STRENGTHS = [
+    {
+        "title":  "Clear Institutional \u0026 Governance Explanation",
+        "quote":  "We have twelve votes: four go to the principal, four to the student council, and four to the parent representatives. You only need eight votes to pass a policy.",
+        "time":  "05:05",
+        "analysis":  "You explained a complex three-body voting mechanism clearly and logically in spontaneous English, making the power balance immediately easy to follow."
+    },
+    {
+        "title":  "Self-Correcting Prepositions in Real Time",
+        "quote":  "He is professor on... in science, right? A professor of science.",
+        "time":  "07:11",
+        "analysis":  "Catching and adjusting prepositions mid-sentence shows strong C1 self-monitoring without losing your conversational flow."
+    },
+    {
+        "title":  "Historical Precision on Stasi Surveillance",
+        "quote":  "With a population of 16 million, they had 250,000 active agents... and every fifth person was a passive informant.",
+        "time":  "33:04",
+        "analysis":  "Your historical storytelling about East German intelligence, psychological control, and scent archives was vivid, well-paced, and gripping."
+    },
+    {
+        "title":  "Macroeconomic Reasoning on State Control",
+        "quote":  "In comparison, capitalism versus communism — capitalism always wins because it generates more capital, and communism only functions if the whole system is closed.",
+        "time":  "39:59",
+        "analysis":  "You articulated an abstract economic critique fluently, connecting property rights and retirement security to state intervention."
+    },
+    {
+        "title":  "Demographic \u0026 Fiscal Policy Insight",
+        "quote":  "50% of the voters are over 50... \u0027We are going to raise your pension,\u0027 while the youth has to pay more later on.",
+        "time":  "54:30",
+        "analysis":  "You framed intergenerational fairness and short-term electoral incentives with impressive analytical clarity."
+    },
+    {
+        "title":  "Thoughtful Ethical Framing of History",
+        "quote":  "You won\u0027t forget history because history often repeats itself... We are very privileged to experience these civil rights.",
+        "time":  "59:58",
+        "analysis":  "Your reflection on why the 1950s–70s Civil Rights Movement matters today is already strong material for your 15-minute presentation."
+    }
+];
+    const PHRASING_POLISHES = [
+    {
+        "topic":  "Transitive \u0027Attend\u0027 (No \u0027to\u0027)",
+        "time":  "00:14",
+        "spoken":  "Yesterday there was a great party, and I attended to it.",
+        "natural":  "Yesterday there was a great party, and I attended it. (or: I went to it.)",
+        "why":  "In English, \u0027attend\u0027 is transitive when meaning \u0027go to an event\u0027 — no \u0027to\u0027 needed! (\u0027Attend to\u0027 means to deal with or care for something.)"
+    },
+    {
+        "topic":  "Subject Doubling \u0026 Adverbs",
+        "time":  "00:14",
+        "spoken":  "In the end, everything, it got through very good.",
+        "natural":  "In the end, everything went really well.",
+        "why":  "Avoid doubling the subject (\u0027everything, it\u0027) and use the adverb \u0027well\u0027 instead of \u0027good\u0027 for how a week or project goes."
+    },
+    {
+        "topic":  "Articles with Professions",
+        "time":  "07:11",
+        "spoken":  "He is professor in science.",
+        "natural":  "He\u0027s a professor of science.",
+        "why":  "Remember the indefinite article \u0027a\u0027 before singular professions, and \u0027professor of [subject]\u0027."
+    },
+    {
+        "topic":  "Irregular Past Participle (\u0027Taught\u0027)",
+        "time":  "17:40",
+        "spoken":  "They speak what is going to be teached in the next year.",
+        "natural":  "They discuss what is going to be taught next year.",
+        "why":  "Irregular past participle: \u0027teach → taught → taught\u0027 (not \u0027teached\u0027). Also \u0027discuss\u0027 fits formal conferences better than \u0027speak\u0027."
+    },
+    {
+        "topic":  "Direct Object After \u0027Attend\u0027",
+        "time":  "17:40",
+        "spoken":  "There are many students who attend to them.",
+        "natural":  "There are many students who attend them / take part in them.",
+        "why":  "Same clean rule as above: \u0027attend an extracurricular activity\u0027 (direct object, no \u0027to\u0027)."
+    },
+    {
+        "topic":  "Preposition Pairing (\u0027Compensate for\u0027)",
+        "time":  "43:04",
+        "spoken":  "Compensate — to compensate the loss.",
+        "natural":  "To compensate for the loss.",
+        "why":  "Great C1 vocabulary choice! Just pair \u0027compensate\u0027 with \u0027for\u0027 when talking about making up for a loss or damage."
+    }
+];
+    const TRANSCRIPT_TURNS = [
+  { id: "turn-1", chapterId: "chap-1", chapterTitle: "Chapter I • School Party \u0026 Student Council Governance (00:00 – 07:51)", speaker: "Louie", time: "00:00", html: `Hi, ${fixBadge('Clemens', 'Clement')}. Hey. How was your week?` },
+  { id: "turn-2", speaker: "Clemens", time: "00:14", html: `I had quite a lot of work to do, but in the end everything went really well. And yesterday there was a great party, and I attended it.` },
+  { id: "turn-3", speaker: "Louie", time: "00:35", html: `Okay, so everything went pretty well this week, and you went to a party. What kind of party was it? Was it a house party?` },
+  { id: "turn-4", speaker: "Clemens", time: "00:49", html: `That's actually pretty cool about my school because we have this student council, and the student council talked with the principal, and they ${v('overrule', 'overruled')} him so we can have a party in our cafeteria on certain dates.` },
+  { id: "turn-5", speaker: "Louie", time: "01:18", html: `Okay, so you had a party in your cafeteria on certain dates — what dates do you pick?` },
+  { id: "turn-6", speaker: "Clemens", time: "01:29", html: `Normally we select about one every... what is it called? A ${v('quarter', 'quarter')}? When you divide a year into four parts.` },
+  { id: "turn-7", speaker: "Louie", time: "01:47", html: `${fixBadge('Quarter', 'Quater')} — yes, a quarter is a fourth. Have you ever heard the phrase '${v('show-no-quarter', 'show them no quarter')}'?` },
+  { id: "turn-8", speaker: "Clemens", time: "02:03", html: `No — is it related to money, like a 25-cent quarter?` },
+  { id: "turn-9", speaker: "Louie", time: "02:25", html: `Quarter also means shelter — like where you stay, your quarters. If you ${v('show-no-quarter', 'show them no quarter')}, you don't give them any shelter, so it means show them no mercy.` },
+  { id: "turn-12", speaker: "Louie", time: "03:04", html: `It's just so ${v('ingrained', 'ingrained')} in us as Navy tradition. So every quarter you have a party?` },
+  { id: "turn-13", speaker: "Clemens", time: "03:21", html: `Yeah, we are allowed to. In the first half, 6th graders up to 11th grade can come from 6:00 PM to 9:00 PM — from my perspective a bit lame, though exciting for the younger ones. And after that, there's an actual after-party not everyone knows about!` },
+  { id: "turn-15", speaker: "Clemens", time: "04:15", html: `The principal attends the first half and even dances with the kids — trying to show how close he is to the students, like politicians do. And there's actually a rule in our school that the student council can out-vote the principal.` },
+  { id: "turn-16", speaker: "Louie", time: "04:51", html: `A great word you might use there is ${v('relatable', 'relatable')}. Now tell me — how can you out-vote the principal?` },
+  { id: "turn-18", speaker: "Clemens", time: "05:05", html: `We have twelve votes: four go to the principal, four to the student council's top ${v('representative', 'representatives')}, and four to the parent ${v('representative', 'representatives')}. You only need eight votes to pass a policy, so we can ${v('overrule', 'overrule')} ${fixBadge('overrule', 'outrule')} the principal. We are a former ${fixBadge('elite school', 'elites to Google')} from East Germany, and many policies and teachers stayed from the ${fixBadge('1980s', 'IITS')}. Sometimes a teacher still uses an overhead projector — though he's the highest-ranking teacher with a doctorate!` },
+  { id: "turn-19", speaker: "Louie", time: "06:53", html: `A ${v('doctorate', 'doctorate')} — yes, he has a doctorate in science!` },
+  { id: "turn-20", speaker: "Clemens", time: "07:11", html: `He's a professor of science. He isn't great with technology, but in biology he still ${fixBadge('knows', 'knew Announs')} every current study, and his lessons are genuinely fun.` },
+  { id: "turn-21", chapterId: "chap-2", chapterTitle: "Chapter II • School Governors, Extracurriculars \u0026 the Curriculum (07:52 – 23:20)", speaker: "Louie", time: "07:52", html: `In England we have ${v('school-governors', 'school governors')} — volunteers who control the direction and budget of the school. In England, being part of the community matters. Because of my pub work, I also hold special ${v('privileges', 'privileges')} as a 'responsible person': I had to pass a ${v('vetting-process', 'vetting process')} and do my ${v('due-diligence', 'due diligence')} so I can sign off on events, passports, and licenses. Is your mother on any school boards?` },
+  { id: "turn-22", speaker: "Clemens", time: "11:41", html: `No — I've been a student representative, which involves a big election, though I'm still waking up a bit today! My mother works hard running her own business, and my father works in the Ministry of Economy, so they give all their spare time to my brother and me.` },
+  { id: "turn-23", speaker: "Louie", time: "13:15", html: `I understand. What kind of responsibilities do you have on the student council?` },
+  { id: "turn-24", speaker: "Clemens", time: "13:28", html: `They aren't just privileges; they're big responsibilities. Would you call it 'student governor' in English?` },
+  { id: "turn-26", speaker: "Louie", time: "14:12", html: `In England we say student council or school council. Governors are like the ${v('executive-board', 'executive board')} — their own separate entity. I was on the school council too, though I can't remember what we did!` },
+  { id: "turn-27", speaker: "Clemens", time: "14:56", html: `A lot of boring stuff — and there's a word trending in Germany right now: ${v('work-time-fraud', 'work-time fraud')}!` },
+  { id: "turn-28", speaker: "Louie", time: "15:17", html: `I love German words! Please tell me.` },
+  { id: "turn-29", speaker: "Clemens", time: "15:22", html: `${fixBadge('Arbeitszeitbetrug', 'Awitze, Petruch')} — work-time fraud. I'm still on the student council, though more as a ${v('passive-member', 'passive member')} now. With two reps per class, we have about 50 people in a ${fixBadge('Plenum', 'planum')} — a student parliament — who vote for representatives. Because of our history, we're partnered with two of Berlin's four big universities and get tutoring from lecturers.` },
+  { id: "turn-34", speaker: "Louie", time: "17:35", html: `Those are ${v('extracurricular', 'extracurricular')} activities.` },
+  { id: "turn-35", speaker: "Clemens", time: "17:40", html: `Yes, extracurricular activities! And student council reps attend subject conferences once a year to help decide what will be taught — for example, right now in biology we're studying the cell biomembrane, which they chose a year ago so we stay relevant.` },
+  { id: "turn-40", speaker: "Clemens", time: "19:45", html: `The ${v('curriculum', 'curriculum')}, right?` },
+  { id: "turn-41", speaker: "Louie", time: "19:46", html: `Exactly — the curriculum! Extracurriculars are a huge advantage in the West. Purely academic systems can leave graduates ${v('narrow-minded', 'narrow-minded')}, whereas students who play the social game and branch out can ${v('blow-out-of-the-water', 'blow them out of the water')}. When I applied to university, my CV was so ${v('jam-packed', 'jam-packed')} with debate, entrepreneurship, and kickboxing that they accepted me without interviews. By the way — do you know where I am today?` },
+  { id: "turn-43", chapterId: "chap-3", chapterTitle: "Chapter III • Vietnam–China Border Crossing \u0026 Surveillance (23:20 – 32:02)", speaker: "Louie", time: "23:24", html: `I'm still in Vietnam, but right across this river — 10 minutes away — I just got back from a motorbike tour in China. It was ridiculously clean!` },
+  { id: "turn-47", speaker: "Clemens", time: "24:54", html: `Yeah, I think it's because of the ${v('surveillance', 'surveillance')} — they film everything and punish people if they're caught.` },
+  { id: "turn-48", speaker: "Louie", time: "25:20", html: `Yes, ${v('social-scoring', 'social scoring')} — even in Vietnam there's a milder version deciding who can travel abroad. At the Chinese border, they interviewed me, though I felt they were just ${v('putting-on-a-show', 'putting on a show')} because I get visa-free entry now.` },
+  { id: "turn-50", speaker: "Louie", time: "27:05", html: `I normally live in ${fixBadge('Hue', 'Huai')} in central Vietnam. At the Laos border, guards demand ${v('bribe', 'bribes')} — corruption there is ${v('rampant', 'rampant')}. By contrast, the Chinese border is ${v('immaculate', 'immaculate')}: they do everything ${v('by-the-rulebook', 'by the rulebook')}. Helpers even filled out my ${fixBadge('arrival card', 'rival card')} for me, saving me a lot of ${v('hassle', 'hassle')}.` },
+  { id: "turn-54", speaker: "Louie", time: "31:15", html: `Every border like Heathrow or ${fixBadge('Munich Airport', 'Munix Airport')} has heavy security, but crossing into China really feels like entering a ${v('police-state', 'police state')}.` },
+  { id: "turn-55", chapterId: "chap-4", chapterTitle: "Chapter IV • East German Stasi, Paranoia \u0026 Authoritarian Capitalism (32:03 – 49:09)", speaker: "Clemens", time: "32:03", html: `Many parties in Germany now push for stronger police powers and surveillance, which is controversial given our history — from Nazi Germany to East Germany.` },
+  { id: "turn-57", speaker: "Clemens", time: "32:33", html: `The CIA once ranked the world's top ${v('intelligence-agency', 'intelligence agencies')}, and East Germany's ${fixBadge('Stasi', 'Starzi')} (Ministry for State Security) was right near the top. Out of 16 million people, they had 250,000 active agents, and roughly every fifth citizen was an informal informant getting a 25% wage bonus. Even a remark in 4th grade could block you from university later.` },
+  { id: "turn-63", speaker: "Clemens", time: "35:15", html: `They also used psychological manipulation: people didn't even know who was an informant. Sometimes the regime gave dissidents sudden perks — like a car in two years instead of twenty, or a phone line — so neighbors would get suspicious and assume they were spies! They even collected citizens' scents in glass jars to track them with dogs.` },
+  { id: "turn-65", speaker: "Louie", time: "38:08", html: `Psychological warfare works, or even better: societal, psychological ${v('coercion', 'coercion')}.` },
+  { id: "turn-67", speaker: "Louie", time: "38:23", html: `Yes — they create ${v('paranoia', 'paranoia')}. Social paranoia.` },
+  { id: "turn-71", speaker: "Clemens", time: "39:30", html: `Vietnam is still communist today, right? Wouldn't a communist government lead to bankruptcy? In capitalism versus communism, capitalism always wins because it generates more wealth.` },
+  { id: "turn-74", speaker: "Louie", time: "40:28", html: `I completely agree — capitalism beats communism. What Vietnam has is a two-tier system: the people are capitalist, but the regime is ${v('authoritarianism', 'authoritarianism')} — total political control. They let you build a business, and once it grows huge — like ${fixBadge('Vinpearl', 'Bin Pearl')} — the state can step in and take it over.` },
+  { id: "turn-77", speaker: "Clemens", time: "43:04", html: `If you have to give up your company, do they at least ${v('compensate', 'compensate')} you for the loss?` },
+  { id: "turn-78", speaker: "Louie", time: "43:26", html: `No — that billionaire went into ${v('exile', 'exile')}. China is different: it lets businesses flourish, though they ${v('watch-like-a-hawk', 'watch them like a hawk')}.` },
+  { id: "turn-81", speaker: "Clemens", time: "45:00", html: `My parents and grandparents told me the same thing about East Germany — if you missed a state parade, people questioned where you were. Many Stasi files were destroyed during the Peaceful Revolution, which thankfully never turned into bloodshed.` },
+  { id: "turn-84", speaker: "Louie", time: "46:25", html: `Here, officials even check IDs before National Day dances, or summon homeowners to stage 'street-cleaning' photo shoots — it's all about maintaining that ${v('illusion', 'illusion')}.` },
+  { id: "turn-87", chapterId: "chap-5", chapterTitle: "Chapter V • Voting Freedom, Demographics \u0026 the Pension Crisis (49:10 – 59:11)", speaker: "Louie", time: "49:10", html: `In the West people say you have to vote, but I believe choosing to ${v('abstain', 'abstain')} is also a statement. In Vietnam, if you don't vote from their pre-selected candidates, officials come to your house. Real freedom is the choice to vote or not to vote.` },
+  { id: "turn-90", speaker: "Clemens", time: "50:57", html: `In East Germany you got the ballot paper, didn't even need a pen, folded it, and dropped it in — and the regime claimed 100% agreement.` },
+  { id: "turn-95", speaker: "Louie", time: "52:10", html: `In England it takes about eight years to cycle out a government and bring in ${v('fresh-blood', 'fresh blood')}, whereas in Brazil people feel stuck. How easy is it to reset the government in Germany?` },
+  { id: "turn-96", speaker: "Clemens", time: "53:19", html: `Because the Weimar Republic failed, we built a well-thought-out ${v('representative-democracy', 'representative democracy')}. Still, trust in older parties is dropping, and 50% of voters are over 50. Politicians win votes by promising to raise your ${v('pension', 'pension')}, leaving young people to pay more later without getting it back — even state-backed pension funds recently lost around 100 million.` },
+  { id: "turn-105", speaker: "Louie", time: "58:03", html: `In England, if you retire abroad they freeze or cut 40% of your state pension, so I moved my savings offshore. Across the West, the pension system is ${v('crumbling', 'crumbling')}. What do you have planned for the rest of the day?` },
+  { id: "turn-106", chapterId: "chap-6", chapterTitle: "Chapter VI • Civil Rights, Slavery History \u0026 Internal Factions (59:12 – 70:48)", speaker: "Clemens", time: "59:12", html: `Today I'm working on two presentations: one in chemistry on polyester, and a 15-minute English presentation on slavery and ${v('civil-rights', 'civil rights')}.` },
+  { id: "turn-108", speaker: "Clemens", time: "59:58", html: `I chose it because we shouldn't forget history — history often repeats itself. The 1950s–70s Civil Rights Movement shows people's courage fighting for freedom, and reminds us how privileged we are today, even if some of those rights emerged against the backdrop of ${v('colonialism', 'colonialism')}.` },
+  { id: "turn-109", speaker: "Louie", time: "61:20", html: `It's a great topic. In England there was an old legal principle from the 1700s: if an enslaved person breathed English air, they were free. Even while ${v('indentured-servitude', 'indentured servitude')} existed in the empire, English ${v('tribunal', 'tribunals')} famously ruled in court that enslaved Americans brought to England were free. Are you focusing mostly on America?` },
+  { id: "turn-110", speaker: "Clemens", time: "63:45", html: `Yes — my partner is covering slavery, and I'm covering the Civil Rights Movement. Each year our English textbook focuses on a different country — England, India, and now America — which I love because it's multicultural.` },
+  { id: "turn-113", speaker: "Louie", time: "65:22", html: `Abraham Lincoln had a famous line when trying to ${v('abolish', 'abolish')} slavery: 'If slavery is not wrong, nothing is wrong.'` },
+  { id: "turn-119", speaker: "Louie", time: "66:35", html: `Have you heard of the ${fixBadge('Black Panthers', 'Black Slack Panthers')} during the era of US ${v('segregation', 'segregation')}?` },
+  { id: "turn-120", speaker: "Clemens", time: "66:42", html: `No, I only know the name from the movies!` },
+  { id: "turn-121", speaker: "Louie", time: "66:44", html: `Alongside Martin Luther King Jr.'s non-violent vision, you had more radical figures like Malcolm X (initially with the Nation of Islam) and the Black Panthers — militant groups that sometimes championed Black rights ${v('to-the-detriment-of', 'to the detriment of')} equality for everyone. Even if ${v('broken-clock', 'a broken clock is right twice a day')} when they protected citizens, there were fierce internal ${v('factions', 'factions')} and rivalries. Look up Malcolm X and Al Sharpton after your presentation, and we'll discuss them next week!` },
+  { id: "turn-122", speaker: "Clemens", time: "70:42", html: `Really enjoyed it — great discussion! Have a nice day, bye!` }
+    ];
+    const EDITORIAL_TOPICS = [
+    {
+        "title":  "Student Representation vs. School Governors",
+        "subtitle":  "How German \u0026 British Schools Teach Shared Governance",
+        "badge":  "School \u0026 Governance",
+        "readTime":  "3 min read",
+        "contentHtml":  "\u003cp class=\"text-xs sm:text-sm text-stone-700 leading-relaxed\"\u003eIn Berlin, Clemens\u0027 school splits decision-making power equally among three stakeholders: 4 votes for the principal, 4 for the student council, and 4 for parent representatives. With 8 votes needed to pass policy, students and parents can formally \u003cstrong\u003eoverrule\u003c/strong\u003e the head teacher. By contrast, British schools rely on an external board of \u003cem\u003eschool governors\u003c/em\u003e—community volunteers who oversee budgets and strategy—while the student council acts as an advisory voice.\u003c/p\u003e"
+    },
+    {
+        "title":  "Surveillance \u0026 Social Paranoia",
+        "subtitle":  "From the East German Stasi to Modern Border Controls",
+        "badge":  "Politics \u0026 History",
+        "readTime":  "4 min read",
+        "contentHtml":  "\u003cp class=\"text-xs sm:text-sm text-stone-700 leading-relaxed\"\u003eClemens highlighted one of the most chilling mechanisms of the East German \u003cem\u003eStasi\u003c/em\u003e: not merely 250,000 active officers, but an informal network where roughly 1 in 5 citizens reported on peers. Worse still, granting sudden privileges—like an early car or telephone line—to dissidents bred \u003cstrong\u003esocial paranoia\u003c/strong\u003e, making neighbors suspect one another. Linking that history to modern border security and social scoring shows why democratic societies debate surveillance powers so fiercely.\u003c/p\u003e"
+    },
+    {
+        "title":  "Authoritarian Capitalism \u0026 Property Rights",
+        "subtitle":  "Market Freedom Without Political Predictability",
+        "badge":  "Economics \u0026 Law",
+        "readTime":  "4 min read",
+        "contentHtml":  "\u003cp class=\"text-xs sm:text-sm text-stone-700 leading-relaxed\"\u003eDuring the lesson, Clemens asked a sharp macroeconomic question: how can a one-party state avoid bankruptcy if capitalism outperforms communism? The answer lies in \u003cstrong\u003eauthoritarian capitalism\u003c/strong\u003e—allowing small businesses and consumer markets to thrive while retaining unchecked political power to seize or exile conglomerates that grow too influential. Without legal predictability and fair \u003cem\u003ecompensation\u003c/em\u003e, entrepreneurs face constant uncertainty.\u003c/p\u003e"
+    },
+    {
+        "title":  "The US Civil Rights Movement",
+        "subtitle":  "Moral Courage, Non-Violence \u0026 Internal Factions",
+        "badge":  "Civil Rights \u0026 Culture",
+        "readTime":  "5 min read",
+        "contentHtml":  "\u003cp class=\"text-xs sm:text-sm text-stone-700 leading-relaxed\"\u003eAs Clemens prepares his 15-minute presentation on slavery and the 1950s–70s Civil Rights Movement, looking beyond a single narrative elevates a B2 talk to C1 analysis. Contrasting Martin Luther King Jr.\u0027s universal, non-violent integrationism with Malcolm X\u0027s early separatism and the Black Panthers\u0027 armed self-defense reveals the \u003cstrong\u003einternal factions\u003c/strong\u003e inside every major social movement.\u003c/p\u003e"
+    }
+];
+    const FLASHCARDS = [
+    {
+        "vocabKey":  "overrule",
+        "front":  "overrule",
+        "ipa":  "/ˌəʊ.vəˈruːl/",
+        "level":  "C1",
+        "backDef":  "To use official authority or a majority vote to reject or overturn someone else\u0027s decision.",
+        "exampleQuote":  "Clemens (00:49): \"...they have overruled him that we can have a party in our cafeteria.\"",
+        "de":  "überstimmen / außer Kraft setzen"
+    },
+    {
+        "vocabKey":  "show-no-quarter",
+        "front":  "show them no quarter",
+        "ipa":  "/ʃəʊ ðəm nəʊ ˈkwɔː.tər/",
+        "level":  "C2",
+        "backDef":  "To show no mercy or pity to an opponent (originally from refusing shelter to defeated enemies).",
+        "exampleQuote":  "Louie (01:55): \"Show them no quarter — it means no mercy.\"",
+        "de":  "keine Gnade zeigen / keinen Pardon geben"
+    },
+    {
+        "vocabKey":  "relatable",
+        "front":  "relatable",
+        "ipa":  "/rɪˈleɪ.tə.bəl/",
+        "level":  "C1",
+        "backDef":  "Easy to understand, connect with, or feel sympathy for because of shared experiences.",
+        "exampleQuote":  "Louie (04:51): \"A word you might use is relatable — they are relatable.\"",
+        "de":  "nahbar / nachvollziehbar"
+    },
+    {
+        "vocabKey":  "due-diligence",
+        "front":  "due diligence",
+        "ipa":  "/ˌdʒuː ˈdɪl.ɪ.dʒəns/",
+        "level":  "C2",
+        "backDef":  "The reasonable, thorough investigation and care a responsible person must take before signing off on something.",
+        "exampleQuote":  "Louie (10:05): \"Well, I have to do my due diligence. I have to check first that it\u0027s safe.\"",
+        "de":  "die gebotene Sorgfalt / Sorgfaltspflicht"
+    },
+    {
+        "vocabKey":  "extracurricular",
+        "front":  "extracurricular",
+        "ipa":  "/ˌek.strə.kəˈrɪk.jə.lər/",
+        "level":  "C1",
+        "backDef":  "Activities, clubs, or sports pursued by students outside the regular academic syllabus.",
+        "exampleQuote":  "Louie (17:35): \"It\u0027s extracurricular activities.\"",
+        "de":  "außerschulisch"
+    },
+    {
+        "vocabKey":  "surveillance",
+        "front":  "surveillance",
+        "ipa":  "/səˈveɪ.ləns/",
+        "level":  "C1",
+        "backDef":  "Close, continuous observation of people or places, especially by police, intelligence agencies, or cameras.",
+        "exampleQuote":  "Clemens (24:54): \"Yeah, I think it\u0027s because of the surveillance. They film everything.\"",
+        "de":  "die Überwachung"
+    },
+    {
+        "vocabKey":  "rampant",
+        "front":  "rampant",
+        "ipa":  "/ˈræm.pənt/",
+        "level":  "C2",
+        "backDef":  "Spreading or happening everywhere in an uncontrolled, unchecked way.",
+        "exampleQuote":  "Louie (27:55): \"And it\u0027s rampant. It\u0027s absolutely rampant.\"",
+        "de":  "weit verbreitet / zügellos / grassierend"
+    },
+    {
+        "vocabKey":  "by-the-rulebook",
+        "front":  "by the rulebook",
+        "ipa":  "/baɪ ðə ˈruːl.bʊk/",
+        "level":  "C1",
+        "backDef":  "Following every official rule and procedure strictly without shortcuts or informal exceptions.",
+        "exampleQuote":  "Louie (28:40): \"They do it by the rulebook. They\u0027re so professional.\"",
+        "de":  "streng nach Vorschrift"
+    },
+    {
+        "vocabKey":  "coercion",
+        "front":  "coercion",
+        "ipa":  "/kəʊˈɜː.ʃən/",
+        "level":  "C2",
+        "backDef":  "The practice of persuading or forcing someone to do something through threats, pressure, or intimidation.",
+        "exampleQuote":  "Louie (38:08): \"It\u0027s more like societal, psychological coercion.\"",
+        "de":  "der Zwang / die Nötigung"
+    },
+    {
+        "vocabKey":  "authoritarianism",
+        "front":  "authoritarianism",
+        "ipa":  "/ɔːˌθɒr.ɪˈteə.ri.ə.nɪ.zəm/",
+        "level":  "C2",
+        "backDef":  "A political system demanding strict obedience to central authority at the expense of personal freedom.",
+        "exampleQuote":  "Louie (40:28): \"This is not communism, this is authoritarianism — total control.\"",
+        "de":  "der Autoritarismus"
+    },
+    {
+        "vocabKey":  "abolish",
+        "front":  "abolish",
+        "ipa":  "/əˈbɒl.ɪʃ/",
+        "level":  "C1",
+        "backDef":  "To formally put an end to a law, system, or institution such as slavery.",
+        "exampleQuote":  "Louie (65:22): \"He had a famous saying when he was trying to abolish slavery.\"",
+        "de":  "abschaffen / aufheben"
+    },
+    {
+        "vocabKey":  "to-the-detriment-of",
+        "front":  "to the detriment of",
+        "ipa":  "/tə ðə ˈdet.rɪ.mənt əv/",
+        "level":  "C2",
+        "backDef":  "In a way that causes harm, disadvantage, or damage to someone or something.",
+        "exampleQuote":  "Louie (67:30): \"Great at that time, but to the detriment of white Americans.\"",
+        "de":  "zum Nachteil von / auf Kosten von"
+    }
+];
+    const IDIOM_CHALLENGES = [
+    {
+        "title":  "No Mercy in the Final",
+        "scenario":  "A football coach tells the team not to ease up even when leading 4–0 in the final. Which idiom fits best?",
+        "options":  [
+                        "Show them no quarter",
+                        "Put on a show",
+                        "Watch like a hawk",
+                        "Fresh blood"
+                    ],
+        "correctIndex":  0,
+        "explanation":  "\u0027Show them no quarter\u0027 means show no mercy to an opponent.",
+        "de":  "keine Gnade zeigen"
+    },
+    {
+        "title":  "Pre-Approval Safety Check",
+        "scenario":  "Before signing off on a large public street festival, the organizer checks every safety certificate. What is this called?",
+        "options":  [
+                        "Fresh blood",
+                        "Due diligence",
+                        "Social scoring",
+                        "Putting on a show"
+                    ],
+        "correctIndex":  1,
+        "explanation":  "\u0027Due diligence\u0027 is the careful investigation required before approving something official.",
+        "de":  "Sorgfaltspflicht"
+    },
+    {
+        "title":  "Strict Border Procedure",
+        "scenario":  "Immigration officers follow every single regulation to the letter without taking shortcuts. How are they acting?",
+        "options":  [
+                        "By the rulebook",
+                        "Jam-packed",
+                        "Blow out of the water",
+                        "A broken clock"
+                    ],
+        "correctIndex":  0,
+        "explanation":  "\u0027By the rulebook\u0027 means strictly following official rules and procedures.",
+        "de":  "streng nach Vorschrift"
+    },
+    {
+        "title":  "Close Corporate Monitoring",
+        "scenario":  "Regulators monitor every move a tech giant makes so nothing escapes their notice. What idiom describes this?",
+        "options":  [
+                        "Abstain from it",
+                        "Watch them like a hawk",
+                        "Put on a show",
+                        "Show no quarter"
+                    ],
+        "correctIndex":  1,
+        "explanation":  "\u0027Watch like a hawk\u0027 means to observe continuously and closely.",
+        "de":  "mit Argusaugen beobachten"
+    },
+    {
+        "title":  "An Unexpectedly Good Act",
+        "scenario":  "An extreme group happens to do one helpful thing despite having bad overall motives. Which proverb fits?",
+        "options":  [
+                        "A broken clock is right twice a day",
+                        "Show no quarter",
+                        "Fresh blood",
+                        "Due diligence"
+                    ],
+        "correctIndex":  0,
+        "explanation":  "\u0027A broken clock is right twice a day\u0027 means even flawed actors occasionally get something right.",
+        "de":  "Auch ein blindes Huhn findet mal ein Korn"
+    },
+    {
+        "title":  "Gain at Another\u0027s Expense",
+        "scenario":  "A policy helps one group gain power while actively harming another group. Which formal phrase describes this?",
+        "options":  [
+                        "Due diligence",
+                        "By the rulebook",
+                        "To the detriment of",
+                        "Fresh blood"
+                    ],
+        "correctIndex":  2,
+        "explanation":  "\u0027To the detriment of\u0027 means causing harm or disadvantage to someone.",
+        "de":  "zum Nachteil von"
+    }
+];
+    const QUIZ_QUESTIONS = [
+    {
+        "question":  "In Clemens\u0027 school, how many votes out of 12 are needed to pass a policy and overrule the principal?",
+        "options":  [
+                        "6 votes",
+                        "8 votes",
+                        "10 votes",
+                        "12 votes"
+                    ],
+        "correctIndex":  1,
+        "explanation":  "Correct! With 4 votes each for the principal, student council, and parents, 8 votes pass a policy."
+    },
+    {
+        "question":  "Which verb form is grammatically natural in English?",
+        "options":  [
+                        "I attended to the party.",
+                        "I attended the party.",
+                        "What is going to be teached.",
+                        "Compensate the loss."
+                    ],
+        "correctIndex":  1,
+        "explanation":  "Spot on! \u0027Attend\u0027 takes a direct object without \u0027to\u0027 when referring to an event."
+    },
+    {
+        "question":  "What does \u0027due diligence\u0027 mean in a legal or organizational context?",
+        "options":  [
+                        "Refusing to vote in an election",
+                        "Careful, thorough checking before approving something",
+                        "Paying a bribe at a border",
+                        "Collecting scent samples"
+                    ],
+        "correctIndex":  1,
+        "explanation":  "Exactly! Due diligence is the careful investigation a responsible person performs beforehand."
+    },
+    {
+        "question":  "Why did the East German Stasi sometimes give dissidents sudden privileges like an early car?",
+        "options":  [
+                        "To reward good grades",
+                        "To create social paranoia so neighbors suspected they were spies",
+                        "To encourage capitalism",
+                        "To fund pensions"
+                    ],
+        "correctIndex":  1,
+        "explanation":  "Correct! It was psychological coercion designed to breed distrust and paranoia."
+    },
+    {
+        "question":  "Which English idiom means \u0027to completely outperform your competitors\u0027?",
+        "options":  [
+                        "Put on a show",
+                        "Blow them out of the water",
+                        "By the rulebook",
+                        "A broken clock"
+                    ],
+        "correctIndex":  1,
+        "explanation":  "Yes! \u0027Blow them out of the water\u0027 means to surpass competitors by a huge margin."
+    },
+    {
+        "question":  "In the 1950s–70s US Civil Rights Movement, what did groups like the Black Panthers illustrate?",
+        "options":  [
+                        "Complete agreement among all activists",
+                        "Internal factions and differing approaches (non-violence vs. militancy)",
+                        "East German school policies",
+                        "British school governors"
+                    ],
+        "correctIndex":  1,
+        "explanation":  "Great recall! Every major movement has internal factions with competing strategies."
+    }
+];
+    const REFLECTION_PROMPTS = [
+    {
+        "title":  "Structuring Your 15-Minute Civil Rights Talk",
+        "category":  "Presentation Strategy",
+        "prompt":  "How will you transition smoothly from your partner\u0027s section on slavery to your focus on the 1950s–70s Civil Rights Movement without rushing?",
+        "prepAdvice":  "Use signposting phrases like \u0027Building on that historical foundation...\u0027 and \u0027Crucially, the movement was not monolithic—internal factions emerged.\u0027"
+    },
+    {
+        "title":  "Comparing Democratic Safeguards",
+        "category":  "Politics \u0026 History",
+        "prompt":  "Reflecting on today\u0027s discussion of the Stasi, Vietnam, and Germany\u0027s Weimar legacy, which single constitutional safeguard do you think matters most for protecting freedom?",
+        "prepAdvice":  "Try incorporating C1 vocabulary from today: \u0027surveillance\u0027, \u0027coercion\u0027, \u0027representative democracy\u0027, and \u0027to the detriment of\u0027."
+    },
+    {
+        "title":  "Preposition \u0026 Irregular Verb Tune-Up",
+        "category":  "Language Precision",
+        "prompt":  "Practice three short sentences aloud using today\u0027s quick fixes: \u0027attend an event\u0027, \u0027taught\u0027 (instead of \u0027teached\u0027), and \u0027compensate for a loss\u0027.",
+        "prepAdvice":  "Speaking them aloud at 1.0× speed builds automatic muscle memory before your presentation."
+    }
+];
+    // State Management
+    var activeTab = 'transcript';
+    var activeSpeakerFilter = 'all';
+    var activeVocabCategory = 'all';
+    var activeVocabLevel = 'all';
+    var currentFlashcardIndex = 0;
+    var isFlashcardFlipped = false;
+    var currentVoiceRate = 1.0;
+    var quizAnswers = {};
+    var idiomAnswers = {};
+
+    function switchTab(tabId) {
+      activeTab = tabId;
+      var tabs = ['transcript', 'vocab', 'fixes', 'editorials', 'practice'];
+      
+      tabs.forEach(function(t) {
+        var panel = document.getElementById('tab-panel-' + t);
+        var btn = document.getElementById('tab-btn-' + t);
+        if (panel) {
+          panel.classList.toggle('hidden', t !== tabId);
+        }
+        if (btn) {
+          if (t === tabId) {
+            btn.className = 'tab-btn flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-sage-700 text-white shadow-sm';
+          } else {
+            btn.className = 'tab-btn flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-stone-700 hover:bg-parchment-100';
+          }
+        }
+      });
+
+      window.scrollTo({ top: 400, behavior: 'smooth' });
+    }
+
+    function inspectVocab(key) {
+      var item = VOCAB_DB[key];
+      if (!item) return;
+
+      document.querySelectorAll('.vocab-mark').forEach(function(el) {
+        el.classList.toggle('active-vocab', el.getAttribute('data-vkey') === key);
+      });
+
+      var badge = document.getElementById('spotlight-badge');
+      if (badge) {
+        badge.textContent = item.level + ' • ' + (item.pos || 'term');
+      }
+
+      var body = document.getElementById('spotlight-body');
+      if (body) {
+        var cleanWord = (item.word || '').replace(/'/g, "\\'");
+        body.innerHTML = 
+          '<div class="space-y-3">' +
+            '<div class="flex items-baseline justify-between">' +
+              '<h3 class="font-serif font-bold text-2xl text-slatewarm-900 leading-tight">' + item.word + '</h3>' +
+              '<button onclick="speakWord(\'' + cleanWord + '\')" class="p-1.5 text-stone-400 hover:text-autumn-600 transition" title="Listen">' +
+                '<i data-lucide="volume-2" class="w-4 h-4"></i>' +
+              '</button>' +
+            '</div>' +
+            '<p class="font-mono text-xs text-stone-500">' + item.ipa + '</p>' +
+            '<div class="p-2.5 rounded-xl bg-parchment-100 text-xs font-semibold text-autumn-800 border border-parchment-300">🇩🇪 Deutsch: ' + (item.de || 'Übersetzung') + '</div>' +
+            '<p class="text-xs text-stone-700 font-sans leading-relaxed">' + item.def + '</p>' +
+            (item.quote ? '<blockquote class="border-l-2 border-stone-300 pl-2.5 text-[11px] italic text-stone-500 leading-relaxed font-serif">“' + item.quote + '”</blockquote>' : '') +
+            '<div class="pt-2 border-t border-stone-200/60 flex items-center justify-between text-xs">' +
+              '<span class="text-stone-400 font-mono text-[11px]">🕒 ' + (item.time || '--:--') + '</span>' +
+              '<button onclick="jumpToTranscriptTurn(\'' + (item.turnId || '') + '\', \'' + key + '\')" class="text-autumn-700 hover:text-autumn-800 font-semibold flex items-center gap-1 transition">' +
+                '<span>View in turn</span>' +
+                '<i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>' +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+      }
+    }
+
+    function initTippyTooltips() {
+      if (typeof tippy !== 'function') return;
+      document.querySelectorAll('.vocab-mark').forEach(function(el) {
+        var key = el.getAttribute('data-vkey');
+        var item = VOCAB_DB[key];
+        if (!item) return;
+
+        if (el._tippy) el._tippy.destroy();
+
+        var cleanWord = (item.word || '').replace(/'/g, "\\'");
+        tippy(el, {
+          theme: 'autumn-sanctuary',
+          allowHTML: true,
+          interactive: true,
+          animation: 'shift-away',
+          maxWidth: 320,
+          content: 
+            '<div class="p-2.5 space-y-2 text-left">' +
+              '<div class="flex items-center justify-between gap-2 border-b border-parchment-200 pb-1.5">' +
+                '<div>' +
+                  '<span class="font-serif font-bold text-base text-slatewarm-900">' + item.word + '</span>' +
+                  '<span class="block font-mono text-[10px] text-stone-500">' + item.ipa + ' • ' + (item.pos || '') + '</span>' +
+                '</div>' +
+                '<span class="px-1.5 py-0.5 rounded bg-autumn-100 text-autumn-800 font-mono text-[10px] font-bold">' + item.level + '</span>' +
+              '</div>' +
+              '<p class="text-xs text-stone-700 leading-snug">' + item.def + '</p>' +
+              '<div class="flex items-center justify-between pt-1 text-[11px] border-t border-parchment-200">' +
+                '<span class="text-sage-800 font-semibold">🇩🇪 ' + (item.de || '') + '</span>' +
+                '<button onclick="speakWord(\'' + cleanWord + '\')" class="px-2 py-0.5 rounded bg-sage-700 text-white text-[10px] font-semibold">🔊 Listen UK</button>' +
+              '</div>' +
+            '</div>'
+        });
+      });
+    }
+
+    function renderTranscript() {
+      var container = document.getElementById('transcript-turns-container');
+      if (!container) return;
+      var search = (document.getElementById('transcript-search').value || '').toLowerCase().trim();
+      var html = '';
+      var currentChapter = '';
+
+      TRANSCRIPT_TURNS.forEach(function(turn) {
+        if (activeSpeakerFilter !== 'all' && turn.speaker.toLowerCase() !== activeSpeakerFilter.toLowerCase()) {
+          return;
+        }
+
+        if (search) {
+          var textToSearch = (turn.speaker + ' ' + turn.time + ' ' + turn.html.replace(/<[^>]*>/g, '')).toLowerCase();
+          if (!textToSearch.includes(search)) return;
+        }
+
+        if (turn.chapterTitle && turn.chapterTitle !== currentChapter) {
+          currentChapter = turn.chapterTitle;
+          html += '<div id="' + (turn.chapterId || '') + '" class="py-3 px-4 rounded-2xl bg-parchment-200/70 border border-parchment-300 flex items-center justify-between text-xs font-serif font-bold text-slatewarm-900 mt-6 mb-2 shadow-xs">' +
+            '<span class="flex items-center gap-2"><i data-lucide="bookmark" class="w-4 h-4 text-autumn-600"></i>' + currentChapter + '</span>' +
+            '<span class="font-mono text-[11px] text-stone-500 font-normal">🕒 ' + turn.time + '</span>' +
+          '</div>';
+        }
+
+        var isLouie = turn.speaker.toLowerCase() === 'louie';
+        var isVerena = turn.speaker.toLowerCase() === 'verena';
+        var borderStyle = isLouie ? 'border-l-4 border-l-sage-600 bg-sage-50/40' : (isVerena ? 'border-l-4 border-l-amber-600 bg-amber-50/30' : 'border-l-4 border-l-autumn-500 bg-parchment-50/50');
+        var avatarBg = isLouie ? 'bg-sage-600 text-white' : (isVerena ? 'bg-amber-600 text-white' : 'bg-autumn-500 text-white');
+        var speakerLabel = isLouie ? '🍂 Louie (Tutor)' : (isVerena ? '🌸 Verena (Mom)' : '🌿 Clemens (Student)');
+        var cleanSpoken = turn.html.replace(/<[^>]*>/g, '').replace(/'/g, "\\'");
+
+        html += '<div id="' + turn.id + '" class="sanctuary-subcard rounded-2xl p-4 sm:p-5 ' + borderStyle + ' space-y-2.5 transition hover:shadow-sm">' +
+          '<div class="flex items-center justify-between gap-2 border-b border-stone-200/60 pb-2">' +
+            '<div class="flex items-center gap-2.5">' +
+              '<div class="w-7 h-7 rounded-full ' + avatarBg + ' flex items-center justify-center font-bold text-xs">' + turn.speaker.charAt(0) + '</div>' +
+              '<div>' +
+                '<span class="font-bold text-xs sm:text-sm text-slatewarm-900">' + speakerLabel + '</span>' +
+                '<span class="ml-2 font-mono text-[11px] text-stone-400">🕒 ' + turn.time + '</span>' +
+              '</div>' +
+            '</div>' +
+            '<button onclick="speakText(\'' + cleanSpoken + '\', \'en-GB\')" class="p-1.5 rounded-lg text-stone-400 hover:text-autumn-600 hover:bg-parchment-100 transition" title="Listen to this turn">' +
+              '<i data-lucide="volume-2" class="w-4 h-4"></i>' +
+            '</button>' +
+          '</div>' +
+          '<div class="text-xs sm:text-sm text-slatewarm-900 leading-relaxed font-sans turn-body">' + turn.html + '</div>' +
+        '</div>';
+      });
+
+      if (!html) {
+        html = '<div class="text-center py-12 text-stone-500 font-serif text-base">No turns match your search criteria.</div>';
+      }
+
+      container.innerHTML = html;
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+      initTippyTooltips();
+    }
+
+    function filterTranscript() {
+      var val = document.getElementById('transcript-search').value;
+      document.getElementById('clear-search-btn').classList.toggle('hidden', !val);
+      renderTranscript();
+    }
+
+    function clearTranscriptSearch() {
+      document.getElementById('transcript-search').value = '';
+      document.getElementById('clear-search-btn').classList.add('hidden');
+      renderTranscript();
+    }
+
+    function filterSpeaker(speaker) {
+      activeSpeakerFilter = speaker;
+      ['all', 'Louie', 'Clemens'].forEach(function(s) {
+        var btn = document.getElementById('spk-' + s.toLowerCase() + '-btn');
+        if (btn) {
+          if (s === speaker) {
+            btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-sage-700 text-white shadow-xs transition';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition';
+          }
+        }
+      });
+      renderTranscript();
+    }
+
+    function toggleAsrBadges() {
+      document.body.classList.toggle('hide-asr-fixes');
+      var hidden = document.body.classList.contains('hide-asr-fixes');
+      document.getElementById('asr-btn-text').textContent = hidden ? 'Note-Taker Fixes: Hidden' : 'Note-Taker Fixes: Visible';
+    }
+
+    function toggleVocabHighlights() {
+      document.body.classList.toggle('hide-vocab-highlights');
+      var hidden = document.body.classList.contains('hide-vocab-highlights');
+      document.getElementById('vocab-btn-text').textContent = hidden ? 'Vocab Highlights: Off' : 'Vocab Highlights: On';
+    }
+
+    function jumpToTranscriptTurn(turnId, vocabKey) {
+      switchTab('transcript');
+      if (vocabKey) inspectVocab(vocabKey);
+
+      setTimeout(function() {
+        var el = document.getElementById(turnId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('turn-highlight-flash');
+          setTimeout(function() { el.classList.remove('turn-highlight-flash'); }, 2900);
+        }
+      }, 150);
+    }
+
+    function renderVocabGrid() {
+      var container = document.getElementById('vocab-cards-grid');
+      if (!container) return;
+      var searchVal = (document.getElementById('vocab-search').value || '').toLowerCase().trim();
+      var html = '';
+      var count = 0;
+
+      Object.keys(VOCAB_DB).forEach(function(key) {
+        var item = VOCAB_DB[key];
+        if (!item) return;
+
+        if (activeVocabCategory !== 'all') {
+          if (item.cat !== activeVocabCategory) return;
+        }
+
+        if (activeVocabLevel !== 'all' && !item.level.startsWith(activeVocabLevel)) {
+          return;
+        }
+
+        if (searchVal) {
+          var combined = ((item.word || '') + ' ' + (item.def || '') + ' ' + (item.de || '') + ' ' + (item.cat || '') + ' ' + (item.quote || '')).toLowerCase();
+          if (!combined.includes(searchVal)) return;
+        }
+
+        count++;
+        var cleanWord = (item.word || '').replace(/'/g, "\\'");
+
+        html += '<div class="sanctuary-subcard rounded-2xl p-5 space-y-3.5 transition hover:shadow-md flex flex-col justify-between border-t-2 border-t-autumn-400">' +
+          '<div class="space-y-2">' +
+            '<div class="flex items-center justify-between gap-2">' +
+              '<span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-autumn-100 text-autumn-800">' + item.level + '</span>' +
+              '<span class="px-2 py-0.5 rounded text-[10px] font-mono text-stone-500 capitalize bg-stone-100">' + item.cat + '</span>' +
+            '</div>' +
+            '<div class="flex items-baseline justify-between">' +
+              '<div>' +
+                '<h3 class="font-serif font-bold text-xl text-slatewarm-900">' + item.word + '</h3>' +
+                '<p class="font-mono text-xs text-stone-500">' + item.ipa + '</p>' +
+              '</div>' +
+              '<button onclick="speakWord(\'' + cleanWord + '\')" class="p-1.5 text-stone-400 hover:text-autumn-600 transition" title="Listen">' +
+                '<i data-lucide="volume-2" class="w-4 h-4"></i>' +
+              '</button>' +
+            '</div>' +
+            '<p class="text-xs text-stone-700 font-sans leading-relaxed">' + item.def + '</p>' +
+            (item.de ? '<div class="p-2.5 rounded-xl bg-gradient-to-r from-parchment-100 to-autumn-50/50 border border-autumn-200/70 text-xs font-medium text-slatewarm-900">🇩🇪 <strong>Deutsch:</strong> ' + item.de + '</div>' : '') +
+            (item.quote ? '<blockquote class="border-l-2 border-stone-300 pl-2.5 text-[11px] italic text-stone-500 leading-relaxed font-serif">“' + item.quote + '”</blockquote>' : '') +
+          '</div>' +
+          '<div class="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">' +
+            '<span class="text-stone-400 font-mono text-[11px]">🕒 ' + (item.time || '--:--') + '</span>' +
+            '<button onclick="jumpToTranscriptTurn(\'' + (item.turnId || '') + '\', \'' + key + '\')" class="text-autumn-700 hover:text-autumn-800 font-semibold flex items-center gap-1 transition">' +
+              '<span>View in turn</span>' +
+              '<i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      });
+
+      if (!html) {
+        html = '<div class="col-span-full text-center py-12 sanctuary-card rounded-3xl p-6 text-stone-500 space-y-2">' +
+          '<i data-lucide="book-x" class="w-8 h-8 mx-auto text-stone-400"></i>' +
+          '<p class="font-serif text-base">No vocabulary items matched your filter.</p>' +
+        '</div>';
+      }
+
+      container.innerHTML = html;
+      var countEl = document.getElementById('vocab-total-badge');
+      if (countEl) countEl.textContent = count + ' Words';
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+
+    function filterVocabCategory(cat) {
+      activeVocabCategory = cat;
+      ['all', 'school-society', 'politics-history', 'economics-law', 'civil-rights', 'language-idioms'].forEach(function(c) {
+        var btn = document.getElementById('cat-' + c);
+        if (btn) {
+          if (c === cat) {
+            btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-sage-700 text-white shadow-xs transition';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 transition';
+          }
+        }
+      });
+      renderVocabGrid();
+    }
+
+    function filterVocabLevel(lvl) {
+      activeVocabLevel = lvl;
+      ['all', 'B2', 'C1', 'C2'].forEach(function(l) {
+        var btn = document.getElementById('lvl-' + l);
+        if (btn) {
+          if (l === lvl) {
+            btn.className = 'px-2.5 py-1 rounded-lg bg-autumn-600 text-white font-bold transition text-xs';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-parchment-100 font-bold transition text-xs';
+          }
+        }
+      });
+      renderVocabGrid();
+    }
+
+    function renderStrengths() {
+      var container = document.getElementById('strengths-container');
+      if (!container) return;
+      container.innerHTML = NATURAL_STRENGTHS.map(function(item, idx) {
+        return '<div class="sanctuary-subcard p-5 rounded-2xl border-l-4 border-l-sage-500 space-y-2">' +
+          '<div class="flex items-center justify-between text-xs">' +
+            '<span class="font-mono text-sage-800 font-bold">' + (idx + 1) + '. ' + item.title + '</span>' +
+            '<span class="font-mono text-stone-400">🕒 ' + item.time + '</span>' +
+          '</div>' +
+          '<p class="font-serif italic text-sm text-stone-800">"' + item.quote + '"</p>' +
+          '<p class="text-xs text-stone-600"><strong>Why this stood out:</strong> ' + item.analysis + '</p>' +
+        '</div>';
+      }).join('');
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+
+    function renderPhrasing() {
+      var container = document.getElementById('phrasing-container');
+      if (!container) return;
+      container.innerHTML = PHRASING_POLISHES.map(function(item, idx) {
+        return '<div class="sanctuary-subcard p-5 rounded-2xl border-l-4 border-l-autumn-500 space-y-2.5">' +
+          '<div class="flex items-center justify-between text-xs">' +
+            '<span class="font-mono text-autumn-800 font-bold">' + (idx + 1) + '. ' + item.topic + '</span>' +
+            '<span class="font-mono text-stone-400">🕒 ' + item.time + '</span>' +
+          '</div>' +
+          '<div class="p-2.5 rounded-xl bg-autumn-50/70 border border-autumn-200/80 text-xs text-stone-600">' +
+            '<span class="font-semibold text-autumn-800">In the moment spoken:</span> "' + item.spoken + '"' +
+          '</div>' +
+          '<div class="p-2.5 rounded-xl bg-sage-50 border border-sage-200 text-xs text-slatewarm-900 font-semibold text-sage-800">' +
+            '<span>✨ Natural Polish:</span> "' + item.natural + '"' +
+          '</div>' +
+          '<p class="text-xs text-stone-600 leading-relaxed"><strong>Why it elevates your voice:</strong> ' + item.why + '</p>' +
+        '</div>';
+      }).join('');
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+
+    function renderAsrFixes() {
+      var container = document.getElementById('asr-fixes-container');
+      if (!container) return;
+      container.innerHTML = ASR_FIXES.map(function(item) {
+        return '<div class="sanctuary-subcard p-4 rounded-2xl border border-stone-200 space-y-1.5">' +
+          '<div class="flex items-center justify-between text-[11px] font-mono">' +
+            '<span class="text-autumn-800 font-bold">' + item.speaker + '</span>' +
+            '<span class="text-stone-400">🕒 ' + item.time + '</span>' +
+          '</div>' +
+          '<div class="text-xs line-through text-stone-400">Note-taker: "' + item.wrong + '"</div>' +
+          '<div class="text-xs font-semibold text-sage-800">⚡ Spoken: "' + item.right + '"</div>' +
+          '<p class="text-[11px] text-stone-500 mt-1">' + item.note + '</p>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderEditorialTopics() {
+      var container = document.getElementById('editorial-cards-container');
+      if (!container) return;
+      container.innerHTML = EDITORIAL_TOPICS.map(function(card) {
+        return '<article class="sanctuary-card rounded-3xl p-6 sm:p-7 space-y-3.5 border-t-4 border-t-sage-600">' +
+          '<div class="flex items-center justify-between gap-2">' +
+            '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sage-100 text-sage-800">' + card.badge + '</span>' +
+            '<span class="text-[11px] text-stone-400 font-mono">' + card.readTime + '</span>' +
+          '</div>' +
+          '<div>' +
+            '<h3 class="font-serif font-bold text-xl sm:text-2xl text-slatewarm-900 leading-snug">' + card.title + '</h3>' +
+            '<h4 class="text-xs text-autumn-700 font-medium mt-0.5">' + card.subtitle + '</h4>' +
+          '</div>' +
+          '<div class="pt-2 border-t border-stone-200/60 leading-relaxed font-sans">' + card.contentHtml + '</div>' +
+        '</article>';
+      }).join('');
+      if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+
+    function updateFlashcardUI() {
+      var card = FLASHCARDS[currentFlashcardIndex];
+      if (!card) return;
+
+      var counterEl = document.getElementById('fc-counter');
+      if (counterEl) counterEl.textContent = (currentFlashcardIndex + 1) + ' / ' + FLASHCARDS.length;
+
+      var fc = document.getElementById('flashcard');
+      if (fc) {
+        fc.classList.toggle('flipped', isFlashcardFlipped);
+      }
+
+      document.getElementById('fc-word-front').textContent = card.front;
+      document.getElementById('fc-ipa-front').textContent = card.ipa;
+      document.getElementById('fc-badge-front').textContent = card.level + ' • Vocab';
+
+      document.getElementById('fc-def-back').textContent = card.backDef;
+      document.getElementById('fc-de-back').textContent = '🇩🇪 Deutsch: ' + card.de;
+      document.getElementById('fc-quote-back').textContent = '“' + card.exampleQuote + '”';
+      document.getElementById('fc-badge-back').textContent = card.level + ' • Practice';
+    }
+
+    function flipFlashcard() {
+      isFlashcardFlipped = !isFlashcardFlipped;
+      var fc = document.getElementById('flashcard');
+      if (fc) fc.classList.toggle('flipped', isFlashcardFlipped);
+    }
+
+    function nextFlashcard() {
+      isFlashcardFlipped = false;
+      currentFlashcardIndex = (currentFlashcardIndex + 1) % FLASHCARDS.length;
+      updateFlashcardUI();
+    }
+
+    function prevFlashcard() {
+      isFlashcardFlipped = false;
+      currentFlashcardIndex = (currentFlashcardIndex - 1 + FLASHCARDS.length) % FLASHCARDS.length;
+      updateFlashcardUI();
+    }
+
+    function speakCurrentFlashcard() {
+      var card = FLASHCARDS[currentFlashcardIndex];
+      if (card) speakWord(card.front);
+    }
+
+    function renderIdiomGym() {
+      var container = document.getElementById('idiom-gym-container');
+      if (!container) return;
+      container.innerHTML = IDIOM_CHALLENGES.map(function(item, idx) {
+        var answered = idiomAnswers.hasOwnProperty(idx);
+        var chosen = idiomAnswers[idx];
+
+        var optHtml = item.options.map(function(opt, oIdx) {
+          var btnClass = 'p-3 rounded-xl border text-xs font-semibold text-left transition ';
+          if (!answered) {
+            btnClass += 'border-stone-200 bg-white hover:bg-parchment-100 text-stone-800';
+          } else {
+            if (oIdx === item.correctIndex) {
+              btnClass += 'border-sage-500 bg-sage-100 text-sage-900 font-bold';
+            } else if (oIdx === chosen) {
+              btnClass += 'border-red-400 bg-red-50 text-red-800';
+            } else {
+              btnClass += 'border-stone-200 bg-stone-50 text-stone-400 opacity-60';
+            }
+          }
+          return '<button onclick="answerIdiom(' + idx + ', ' + oIdx + ')" ' + (answered ? 'disabled' : '') + ' class="' + btnClass + '">' + opt + '</button>';
+        }).join('');
+
+        return '<div class="sanctuary-subcard rounded-2xl p-5 space-y-3">' +
+          '<div class="flex items-center justify-between text-xs font-mono">' +
+            '<span class="font-bold text-autumn-800">Challenge ' + (idx + 1) + ': ' + item.title + '</span>' +
+            '<span class="text-stone-400">🇩🇪 ' + item.de + '</span>' +
+          '</div>' +
+          '<p class="text-xs text-stone-700 leading-relaxed font-sans">' + item.scenario + '</p>' +
+          '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">' + optHtml + '</div>' +
+          (answered ? '<div class="p-3 rounded-xl bg-sage-50 border border-sage-200 text-xs text-sage-900 leading-relaxed"><strong>Why this fits:</strong> ' + item.explanation + '</div>' : '') +
+        '</div>';
+      }).join('');
+    }
+
+    function answerIdiom(challengeIdx, optionIdx) {
+      if (idiomAnswers.hasOwnProperty(challengeIdx)) return;
+      idiomAnswers[challengeIdx] = optionIdx;
+      if (optionIdx === IDIOM_CHALLENGES[challengeIdx].correctIndex) {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 35, spread: 50, origin: { y: 0.8 } });
+        }
+      }
+      renderIdiomGym();
+    }
+
+    function renderQuiz() {
+      var container = document.getElementById('quiz-questions-container');
+      if (!container) return;
+
+      var answeredCount = Object.keys(quizAnswers).length;
+      var correctCount = 0;
+      Object.keys(quizAnswers).forEach(function(k) {
+        if (quizAnswers[k] === QUIZ_QUESTIONS[k].correctIndex) correctCount++;
+      });
+      document.getElementById('quiz-score-badge').textContent = 'Score: ' + correctCount + ' / ' + QUIZ_QUESTIONS.length;
+
+      container.innerHTML = QUIZ_QUESTIONS.map(function(q, qIdx) {
+        var answered = quizAnswers.hasOwnProperty(qIdx);
+        var chosen = quizAnswers[qIdx];
+
+        var optHtml = q.options.map(function(opt, oIdx) {
+          var btnClass = 'p-3 rounded-xl border text-xs text-left transition font-sans ';
+          if (!answered) {
+            btnClass += 'border-stone-200 bg-white hover:bg-parchment-100 text-stone-800';
+          } else {
+            if (oIdx === q.correctIndex) {
+              btnClass += 'border-sage-500 bg-sage-100 text-sage-900 font-bold';
+            } else if (oIdx === chosen) {
+              btnClass += 'border-red-400 bg-red-50 text-red-800';
+            } else {
+              btnClass += 'border-stone-200 bg-stone-50 text-stone-400 opacity-60';
+            }
+          }
+          return '<button onclick="answerQuiz(' + qIdx + ', ' + oIdx + ')" ' + (answered ? 'disabled' : '') + ' class="' + btnClass + '">' + opt + '</button>';
+        }).join('');
+
+        return '<div class="sanctuary-subcard rounded-2xl p-5 space-y-3">' +
+          '<div class="flex items-center justify-between text-xs">' +
+            '<span class="font-mono font-bold text-sage-800">Question ' + (qIdx + 1) + ' of ' + QUIZ_QUESTIONS.length + '</span>' +
+          '</div>' +
+          '<h3 class="font-serif font-bold text-base text-slatewarm-900">' + q.question + '</h3>' +
+          '<div class="grid grid-cols-1 gap-2 pt-1">' + optHtml + '</div>' +
+          (answered ? '<div class="p-3 rounded-xl bg-sage-50 border border-sage-200 text-xs text-sage-900 leading-relaxed font-sans"><strong>Explanation:</strong> ' + q.explanation + '</div>' : '') +
+        '</div>';
+      }).join('');
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      if (quizAnswers.hasOwnProperty(qIdx)) return;
+      quizAnswers[qIdx] = oIdx;
+      if (oIdx === QUIZ_QUESTIONS[qIdx].correctIndex) {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 45, spread: 60, origin: { y: 0.8 } });
+        }
+      }
+      renderQuiz();
+    }
+
+    function renderReflections() {
+      var container = document.getElementById('reflections-container');
+      if (!container) return;
+      container.innerHTML = REFLECTION_PROMPTS.map(function(ref, idx) {
+        return '<div class="sanctuary-subcard rounded-2xl p-5 space-y-2.5 flex flex-col justify-between border-t-2 border-t-autumn-500">' +
+          '<div class="space-y-2">' +
+            '<div class="flex items-center justify-between text-[11px]">' +
+              '<span class="font-mono font-bold text-autumn-800">Prompt 0' + (idx + 1) + '</span>' +
+              '<span class="px-2 py-0.5 rounded bg-stone-100 text-stone-500 font-mono text-[10px]">' + ref.category + '</span>' +
+            '</div>' +
+            '<h4 class="font-serif font-bold text-base text-slatewarm-900">' + ref.title + '</h4>' +
+            '<p class="text-xs text-stone-700 leading-relaxed font-sans">' + ref.prompt + '</p>' +
+          '</div>' +
+          '<div class="p-2.5 rounded-xl bg-parchment-100 border border-parchment-200 text-[11px] text-stone-600 font-mono">' +
+            '💡 <strong>Prep Tip:</strong> ' + ref.prepAdvice +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    // Audio Speech Synthesis
+    function speakWord(word) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(word);
+      u.lang = 'en-GB';
+      u.rate = currentVoiceRate;
+      window.speechSynthesis.speak(u);
+    }
+
+    function speakText(text, lang) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = lang || 'en-GB';
+      u.rate = currentVoiceRate;
+      window.speechSynthesis.speak(u);
+    }
+
+    function setVoiceRate(rate) {
+      currentVoiceRate = rate;
+      var btnSlow = document.getElementById('rate-slow');
+      var btnNormal = document.getElementById('rate-normal');
+      if (rate === 0.85) {
+        if (btnSlow) btnSlow.className = 'px-1.5 py-0.5 rounded-md text-[11px] bg-sage-600 text-white font-semibold transition';
+        if (btnNormal) btnNormal.className = 'px-1.5 py-0.5 rounded-md text-[11px] text-stone-600 hover:bg-parchment-100 transition';
+      } else {
+        if (btnSlow) btnSlow.className = 'px-1.5 py-0.5 rounded-md text-[11px] text-stone-600 hover:bg-parchment-100 transition';
+        if (btnNormal) btnNormal.className = 'px-1.5 py-0.5 rounded-md text-[11px] bg-sage-600 text-white font-semibold transition';
+      }
+    }
+
+    // Web Audio API Soundscape Synthesizer
+    var audioCtx = null;
+    var soundscapeSource = null;
+    var soundscapeGain = null;
+    var isSoundscapePlaying = false;
+    var currentSoundscapePreset = 'breeze';
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function createPinkNoiseNode() {
+      var bufferSize = audioCtx.sampleRate * 2;
+      var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      var output = buffer.getChannelData(0);
+      var b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (var i = 0; i < bufferSize; i++) {
+        var white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+        output[i] *= 0.11;
+        b6 = white * 0.115926;
+      }
+      var whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = buffer;
+      whiteNoise.loop = true;
+      return whiteNoise;
+    }
+
+    function startSoundscape() {
+      initAudioContext();
+      if (soundscapeSource) {
+        try { soundscapeSource.stop(); } catch(e) {}
+      }
+
+      soundscapeSource = createPinkNoiseNode();
+      soundscapeGain = audioCtx.createGain();
+      var filter = audioCtx.createBiquadFilter();
+
+      if (currentSoundscapePreset === 'rain') {
+        filter.type = 'lowpass';
+        filter.frequency.value = 1100;
+        soundscapeGain.gain.value = 0.25;
+      } else if (currentSoundscapePreset === 'study') {
+        filter.type = 'lowpass';
+        filter.frequency.value = 450;
+        soundscapeGain.gain.value = 0.28;
+      } else {
+        filter.type = 'lowpass';
+        filter.frequency.value = 650;
+        soundscapeGain.gain.value = 0.22;
+      }
+
+      soundscapeSource.connect(filter);
+      filter.connect(soundscapeGain);
+      soundscapeGain.connect(audioCtx.destination);
+      soundscapeSource.start();
+      isSoundscapePlaying = true;
+
+      var label = document.getElementById('soundscape-label');
+      if (label) label.textContent = 'Autumn Breeze: Playing';
+      var icon = document.getElementById('soundscape-icon');
+      if (icon) icon.className = 'w-3.5 h-3.5 text-sage-600 animate-pulse';
+    }
+
+    function stopSoundscape() {
+      if (soundscapeSource) {
+        try { soundscapeSource.stop(); } catch(e) {}
+        soundscapeSource = null;
+      }
+      isSoundscapePlaying = false;
+      var label = document.getElementById('soundscape-label');
+      if (label) label.textContent = 'Autumn Breeze: Off';
+      var icon = document.getElementById('soundscape-icon');
+      if (icon) icon.className = 'w-3.5 h-3.5 text-autumn-600';
+    }
+
+    function toggleSoundscape() {
+      if (isSoundscapePlaying) {
+        stopSoundscape();
+      } else {
+        startSoundscape();
+      }
+    }
+
+    function changeSoundscapePreset(preset) {
+      currentSoundscapePreset = preset;
+      if (isSoundscapePlaying) {
+        stopSoundscape();
+        startSoundscape();
+      }
+    }
+
+    function updateSoundscapeVolume(val) {
+      if (soundscapeGain && audioCtx) {
+        soundscapeGain.gain.setValueAtTime(parseFloat(val), audioCtx.currentTime);
+      }
+    }
+
+    // HTML5 Canvas Falling Autumn Leaves Animation
+    var leafMode = 'gentle';
+    var canvas, ctx, animFrameId;
+    var leaves = [];
+
+    function initLeafCanvas() {
+      canvas = document.getElementById('autumn-breeze-canvas');
+      if (!canvas) return;
+      ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      leaves = [];
+      var leafCount = 28;
+      var colors = ['#be6f38', '#d38c57', '#e2b086', '#5b826f', '#cadad1'];
+
+      for (var i = 0; i < leafCount; i++) {
+        leaves.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 8 + 6,
+          speedY: Math.random() * 0.8 + 0.4,
+          speedX: Math.random() * 0.6 - 0.2,
+          rot: Math.random() * 360,
+          rotSpeed: Math.random() * 1.5 - 0.75,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: Math.random() * 0.45 + 0.25
+        });
+      }
+
+      animateLeaves();
+    }
+
+    function animateLeaves() {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (leafMode !== 'off') {
+        leaves.forEach(function(leaf) {
+          ctx.save();
+          ctx.translate(leaf.x, leaf.y);
+          ctx.rotate((leaf.rot * Math.PI) / 180);
+          ctx.fillStyle = leaf.color;
+          ctx.globalAlpha = leaf.alpha;
+          
+          ctx.beginPath();
+          ctx.moveTo(0, -leaf.size);
+          ctx.quadraticCurveTo(leaf.size * 0.8, 0, 0, leaf.size);
+          ctx.quadraticCurveTo(-leaf.size * 0.8, 0, 0, -leaf.size);
+          ctx.fill();
+          ctx.restore();
+
+          var mult = leafMode === 'breeze' ? 2.2 : 1.0;
+          leaf.y += leaf.speedY * mult;
+          leaf.x += leaf.speedX * mult;
+          leaf.rot += leaf.rotSpeed * mult;
+
+          if (leaf.y > canvas.height + 20) {
+            leaf.y = -20;
+            leaf.x = Math.random() * canvas.width;
+          }
+          if (leaf.x > canvas.width + 20) leaf.x = -20;
+          if (leaf.x < -20) leaf.x = canvas.width + 20;
+        });
+      }
+
+      animFrameId = requestAnimationFrame(animateLeaves);
+    }
+
+    function cycleLeafBreeze() {
+      var label = document.getElementById('leaves-label');
+      if (leafMode === 'gentle') {
+        leafMode = 'breeze';
+        if (label) label.textContent = 'Leaves: Breeze';
+      } else if (leafMode === 'breeze') {
+        leafMode = 'off';
+        if (label) label.textContent = 'Leaves: Still (Off)';
+      } else {
+        leafMode = 'gentle';
+        if (label) label.textContent = 'Leaves: Gentle';
+      }
+    }
+
+    function setThemeMood(theme) {
+      document.body.setAttribute('data-theme', theme);
+      ['kensington', 'winchester', 'twilight'].forEach(function(t) {
+        var btn = document.getElementById('theme-' + t);
+        if (btn) {
+          if (t === theme) {
+            btn.className = 'px-2 py-0.5 rounded-lg bg-autumn-100 text-autumn-800 font-semibold transition';
+          } else {
+            btn.className = 'px-2 py-0.5 rounded-lg text-stone-600 hover:text-stone-900 transition';
+          }
+        }
+      });
+    }
+
+    function copyPreplySummary() {
+      var summaryText = 
+        "🌿 Louie's English Studio - Lesson Notes (14 Nov 2026)\n" +
+        "Student: Clemens B. | Tutor: Louie\n\n" +
+        "✨ Topics Covered Today:\n" +
+        "• School Party, Student Council & 12-Vote Governance (Overruling the Principal)\n" +
+        "• UK School Governors, Vetting Processes & Community Privileges\n" +
+        "• Vietnam–China Border Crossings, Social Scoring & Rule-of-Law Contrast\n" +
+        "• East German Stasi Surveillance, Social Paranoia & Authoritarian Capitalism\n" +
+        "• Voting Freedom, Abstention & Germany's Pension Demographics\n" +
+        "• US Civil Rights Movement, Slavery History & Internal Factions (MLK vs Malcolm X)\n\n" +
+        "🌟 6 Natural Strengths Celebrated & 6 Gentle Phrasing Polishes\n" +
+        "🎯 Homework: Prepare your 15-minute Civil Rights & Slavery presentation for next week!\n\n" +
+        "Explore your full interactive sanctuary notes, audio pronunciations, and flashcards on GitHub Pages!";
+
+      navigator.clipboard.writeText(summaryText).then(function() {
+        alert('✨ Preply lesson summary copied to your clipboard!');
+      }).catch(function() {
+        alert('Could not copy automatically. Please copy the text from the notes tab.');
+      });
+    }
+
+    // Isolated Error Boundary safeRender helper
+    function safeRender(name, renderFn, containerId) {
+      try {
+        renderFn();
+      } catch (err) {
+        console.error('Error rendering ' + name + ':', err);
+        var el = document.getElementById(containerId);
+        if (el) {
+          el.innerHTML = '<div class="p-6 bg-autumn-50 border border-autumn-200 rounded-2xl text-autumn-800 text-sm">' +
+            '<p class="font-bold mb-1">Notice: ' + name + ' is updating...</p>' +
+            '<p class="text-xs text-autumn-600">' + err.message + '</p>' +
+          '</div>';
+        }
+      }
+    }
+
+    // Startup DOM Listener
+    window.addEventListener('DOMContentLoaded', function() {
+      safeRender('Transcript', renderTranscript, 'transcript-turns-container');
+      safeRender('Vocabulary Dictionary', renderVocabGrid, 'vocab-cards-grid');
+      safeRender('Natural Strengths', renderStrengths, 'strengths-container');
+      safeRender('Phrasing Polishes', renderPhrasing, 'phrasing-container');
+      safeRender('ASR Fixes Log', renderAsrFixes, 'asr-fixes-container');
+      safeRender('Editorial Topics', renderEditorialTopics, 'editorial-cards-container');
+      safeRender('Flashcards', updateFlashcardUI, 'flashcard');
+      safeRender('Idiom Gym', renderIdiomGym, 'idiom-gym-container');
+      safeRender('Context Quiz', renderQuiz, 'quiz-questions-container');
+      safeRender('Reflections', renderReflections, 'reflections-container');
+
+      try { initLeafCanvas(); } catch (e) { console.warn(e); }
+      try {
+        var firstKey = Object.keys(VOCAB_DB)[0];
+        if (firstKey) inspectVocab(firstKey);
+      } catch (e) { console.warn(e); }
+
+      try {
+        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+          lucide.createIcons();
+        }
+      } catch (e) { console.warn(e); }
+    });
+  </script>
+</body>
+</html>
